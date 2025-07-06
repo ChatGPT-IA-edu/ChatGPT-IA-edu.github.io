@@ -27,27 +27,15 @@
         }
     </script>
     <style>
-        /* Estilos para una barra de desplazamiento suave */
-        html {
-            scroll-behavior: smooth;
-        }
-        /* Estilo para el efecto de "typing" */
+        html { scroll-behavior: smooth; }
         .typing-effect {
             border-right: .15em solid #10B981;
             white-space: nowrap;
             overflow: hidden;
             animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
         }
-
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
-        }
-
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: #10B981; }
-        }
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: #10B981; } }
     </style>
 </head>
 <body class="bg-pastel-green-light font-inter text-brand-dark">
@@ -59,15 +47,27 @@
                 <img src="https://chatgpt-ia-edu.github.io/chatgptTelegram.jpeg" alt="Logo de la Comunidad" class="h-12 w-12 rounded-full object-cover">
                 <span class="text-xl font-bold text-brand-dark">ChatGPT-IA-edu</span>
             </div>
-            <nav class="hidden md:flex space-x-8">
-                <a href="#inicio" class="hover:text-brand-green transition-colors duration-300">Inicio</a>
-                <a href="#nosotros" class="hover:text-brand-green transition-colors duration-300">Nosotros</a>
-                <a href="#recursos" class="hover:text-brand-green transition-colors duration-300">Recursos</a>
-                <a href="#boletines" class="hover:text-brand-green transition-colors duration-300">Boletines</a>
-            </nav>
-            <a href="https://t.me/ChatGPTedu" target="_blank" class="hidden md:block bg-brand-green text-white px-4 py-2 rounded-lg hover:bg-brand-dark transition-transform duration-300 transform hover:scale-105">
-                Únete a Telegram
-            </a>
+            <div class="flex items-center">
+                <nav class="hidden md:flex space-x-8 mr-8">
+                    <a href="#inicio" class="hover:text-brand-green transition-colors duration-300" data-translate="nav.inicio">Inicio</a>
+                    <a href="#nosotros" class="hover:text-brand-green transition-colors duration-300" data-translate="nav.nosotros">Nosotros</a>
+                    <a href="#recursos" class="hover:text-brand-green transition-colors duration-300" data-translate="nav.recursos">Recursos</a>
+                    <a href="#boletines" class="hover:text-brand-green transition-colors duration-300" data-translate="nav.boletines">Boletines</a>
+                </nav>
+                <!-- Language Selector -->
+                <div class="relative">
+                    <select id="language-selector" class="appearance-none bg-white border border-gray-300 rounded-md py-2 pl-3 pr-8 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-green">
+                        <option value="es">Español</option>
+                        <option value="ca">Català</option>
+                        <option value="gl">Galego</option>
+                        <option value="eu">Euskara</option>
+                        <option value="en">English</option>
+                    </select>
+                </div>
+                <a href="https://t.me/ChatGPTedu" target="_blank" class="hidden lg:block bg-brand-green text-white px-4 py-2 rounded-lg hover:bg-brand-dark transition-transform duration-300 transform hover:scale-105 ml-4" data-translate="uneteTelegram">
+                    Únete a Telegram
+                </a>
+            </div>
             <button id="mobile-menu-button" class="md:hidden text-brand-dark">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
@@ -76,11 +76,11 @@
         </div>
         <!-- Menú Móvil -->
         <div id="mobile-menu" class="hidden md:hidden bg-white">
-            <a href="#inicio" class="block px-6 py-3 text-center hover:bg-pastel-green-medium">Inicio</a>
-            <a href="#nosotros" class="block px-6 py-3 text-center hover:bg-pastel-green-medium">Nosotros</a>
-            <a href="#recursos" class="block px-6 py-3 text-center hover:bg-pastel-green-medium">Recursos</a>
-            <a href="#boletines" class="block px-6 py-3 text-center hover:bg-pastel-green-medium">Boletines</a>
-             <a href="https://t.me/ChatGPTedu" target="_blank" class="block bg-brand-green text-white px-4 py-3 text-center rounded-b-lg hover:bg-brand-dark transition-colors duration-300">
+            <a href="#inicio" class="block px-6 py-3 text-center hover:bg-pastel-green-medium" data-translate="nav.inicio">Inicio</a>
+            <a href="#nosotros" class="block px-6 py-3 text-center hover:bg-pastel-green-medium" data-translate="nav.nosotros">Nosotros</a>
+            <a href="#recursos" class="block px-6 py-3 text-center hover:bg-pastel-green-medium" data-translate="nav.recursos">Recursos</a>
+            <a href="#boletines" class="block px-6 py-3 text-center hover:bg-pastel-green-medium" data-translate="nav.boletines">Boletines</a>
+             <a href="https://t.me/ChatGPTedu" target="_blank" class="block bg-brand-green text-white px-4 py-3 text-center rounded-b-lg hover:bg-brand-dark transition-colors duration-300" data-translate="uneteTelegram">
                 Únete a Telegram
             </a>
         </div>
@@ -91,12 +91,12 @@
         <section id="inicio" class="py-20 bg-white">
             <div class="container mx-auto px-6 text-center">
                 <h1 class="text-4xl md:text-6xl font-bold mb-4">
-                    Explorando la <span class="text-brand-green">Inteligencia Artificial</span> en la Educación
+                    <span data-translate="hero.title1">Explorando la</span> <span class="text-brand-green" data-translate="hero.title2">Inteligencia Artificial</span> <span data-translate="hero.title3">en la Educación</span>
                 </h1>
-                <p class="text-lg md:text-xl max-w-3xl mx-auto mb-8 text-gray-600 typing-effect">
+                <p class="text-lg md:text-xl max-w-3xl mx-auto mb-8 text-gray-600 typing-effect" data-translate="hero.subtitle">
                     Compartimos experiencias, herramientas y aprendizajes sobre IA.
                 </p>
-                <a href="https://t.me/ChatGPTedu" target="_blank" class="bg-brand-green text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-brand-dark transition-transform duration-300 transform hover:scale-105 inline-block">
+                <a href="https://t.me/ChatGPTedu" target="_blank" class="bg-brand-green text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-brand-dark transition-transform duration-300 transform hover:scale-105 inline-block" data-translate="hero.button">
                     ¡Únete a la Comunidad!
                 </a>
             </div>
@@ -105,25 +105,25 @@
         <!-- About Section -->
         <section id="nosotros" class="py-20 bg-pastel-green-medium">
             <div class="container mx-auto px-6">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Nuestros Espacios</h2>
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12" data-translate="about.title">Nuestros Espacios</h2>
                 <div class="grid md:grid-cols-3 gap-8 text-center">
                     <div class="bg-white p-8 rounded-xl shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
-                        <h3 class="text-2xl font-bold mb-4 text-brand-green">General</h3>
-                        <p class="text-gray-600">El corazón de la comunidad. Aquí fluyen las conversaciones, dudas y descubrimientos del día a día.</p>
+                        <h3 class="text-2xl font-bold mb-4 text-brand-green" data-translate="about.general.title">General</h3>
+                        <p class="text-gray-600" data-translate="about.general.desc">El corazón de la comunidad. Aquí fluyen las conversaciones, dudas y descubrimientos del día a día.</p>
                     </div>
                     <div class="bg-white p-8 rounded-xl shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
-                        <h3 class="text-2xl font-bold mb-4 text-brand-green">Boletines Semanales</h3>
-                        <p class="text-gray-600">Un resumen curado con las noticias, herramientas y debates más relevantes de cada semana.</p>
+                        <h3 class="text-2xl font-bold mb-4 text-brand-green" data-translate="about.boletines.title">Boletines Semanales</h3>
+                        <p class="text-gray-600" data-translate="about.boletines.desc">Un resumen curado con las noticias, herramientas y debates más relevantes de cada semana.</p>
                     </div>
                     <div class="bg-white p-8 rounded-xl shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
-                        <h3 class="text-2xl font-bold mb-4 text-brand-green">Biblioteca Digital</h3>
-                        <p class="text-gray-600">Un espacio colaborativo para compartir publicaciones, artículos y recursos valiosos sobre IA en educación.</p>
+                        <h3 class="text-2xl font-bold mb-4 text-brand-green" data-translate="about.biblioteca.title">Biblioteca Digital</h3>
+                        <p class="text-gray-600" data-translate="about.biblioteca.desc">Un espacio colaborativo para compartir publicaciones, artículos y recursos valiosos sobre IA en educación.</p>
                     </div>
                 </div>
                 <div class="mt-16 text-center bg-white p-8 rounded-xl shadow-lg max-w-4xl mx-auto">
-                     <h3 class="text-2xl font-bold mb-4 text-brand-dark">Nuestros Principios</h3>
-                    <p class="text-gray-700 text-lg">Nos adherimos a los principios del <span class="font-semibold text-brand-green">Conocimiento Abierto</span>, fomentando un aprendizaje colaborativo, transparente y accesible para todos.</p>
-                    <a href="https://bilateria.org/app/" target="_blank" class="mt-4 inline-block text-brand-green font-semibold hover:underline">
+                     <h3 class="text-2xl font-bold mb-4 text-brand-dark" data-translate="about.principios.title">Nuestros Principios</h3>
+                    <p class="text-gray-700 text-lg" data-translate="about.principios.desc">Nos adherimos a los principios del <span class="font-semibold text-brand-green">Conocimiento Abierto</span>, fomentando un aprendizaje colaborativo, transparente y accesible para todos.</p>
+                    <a href="https://bilateria.org/app/decalogo-conocimiento-abierto.html" target="_blank" class="mt-4 inline-block text-brand-green font-semibold hover:underline" data-translate="about.principios.link">
                         Conoce el Decálogo &rarr;
                     </a>
                 </div>
@@ -133,47 +133,27 @@
         <!-- Resources Section -->
         <section id="recursos" class="py-20 bg-white">
             <div class="container mx-auto px-6">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Enlaces de Interés</h2>
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12" data-translate="resources.title">Enlaces de Interés</h2>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Card 1 -->
                     <div class="bg-pastel-green-light rounded-xl shadow-lg overflow-hidden flex flex-col">
-                        <div class="p-6 flex-grow">
-                            <h3 class="text-xl font-bold mb-3 text-brand-dark">Biblioteca Avanzada de Prompts Educativos</h3>
-                            <p class="text-gray-600 mb-4">Un TiddlyWiki repleto de prompts diseñados para el entorno educativo.</p>
-                        </div>
-                        <a href="https://eduprompts.tiddlyhost.com/" target="_blank" class="block bg-brand-green text-white text-center py-3 font-semibold hover:bg-brand-dark transition-colors duration-300">Visitar</a>
+                        <div class="p-6 flex-grow"><h3 class="text-xl font-bold mb-3 text-brand-dark" data-translate="resources.card1.title">Biblioteca Avanzada de Prompts Educativos</h3><p class="text-gray-600 mb-4" data-translate="resources.card1.desc">Un TiddlyWiki repleto de prompts diseñados para el entorno educativo.</p></div>
+                        <a href="https://eduprompts.tiddlyhost.com/" target="_blank" class="block bg-brand-green text-white text-center py-3 font-semibold hover:bg-brand-dark transition-colors duration-300" data-translate="resources.visit">Visitar</a>
                     </div>
-                    <!-- Card 2 -->
                     <div class="bg-pastel-green-light rounded-xl shadow-lg overflow-hidden flex flex-col">
-                        <div class="p-6 flex-grow">
-                            <h3 class="text-xl font-bold mb-3 text-brand-dark">GPT del Grupo: Jorge</h3>
-                            <p class="text-gray-600 mb-4">Interactúa con una IA entrenada con la información y el conocimiento de nuestro grupo.</p>
-                        </div>
-                        <a href="https://chat.openai.com/g/g-gfxIc7lLR-grupo-de-telegram-chatgptiaedu" target="_blank" class="block bg-brand-green text-white text-center py-3 font-semibold hover:bg-brand-dark transition-colors duration-300">Chatear con Jorge</a>
+                        <div class="p-6 flex-grow"><h3 class="text-xl font-bold mb-3 text-brand-dark" data-translate="resources.card2.title">GPT del Grupo: Jorge</h3><p class="text-gray-600 mb-4" data-translate="resources.card2.desc">Interactúa con una IA entrenada con la información y el conocimiento de nuestro grupo.</p></div>
+                        <a href="https://chat.openai.com/g/g-gfxIc7lLR-grupo-de-telegram-chatgptiaedu" target="_blank" class="block bg-brand-green text-white text-center py-3 font-semibold hover:bg-brand-dark transition-colors duration-300" data-translate="resources.chat">Chatear con Jorge</a>
                     </div>
-                    <!-- Card 3 -->
                     <div class="bg-pastel-green-light rounded-xl shadow-lg overflow-hidden flex flex-col">
-                        <div class="p-6 flex-grow">
-                            <h3 class="text-xl font-bold mb-3 text-brand-dark">IA en Educación para Docentes</h3>
-                            <p class="text-gray-600 mb-4">Guía completa del INTEF con contenidos sobre la aplicación de la IA en la docencia.</p>
-                        </div>
-                        <a href="https://descargas.intef.es/cedec/proyectoedia/guias/contenidos/inteligencia_artificial/index.html" target="_blank" class="block bg-brand-green text-white text-center py-3 font-semibold hover:bg-brand-dark transition-colors duration-300">Ver Guía</a>
+                        <div class="p-6 flex-grow"><h3 class="text-xl font-bold mb-3 text-brand-dark" data-translate="resources.card3.title">IA en Educación para Docentes</h3><p class="text-gray-600 mb-4" data-translate="resources.card3.desc">Guía completa del INTEF con contenidos sobre la aplicación de la IA en la docencia.</p></div>
+                        <a href="https://descargas.intef.es/cedec/proyectoedia/guias/contenidos/inteligencia_artificial/index.html" target="_blank" class="block bg-brand-green text-white text-center py-3 font-semibold hover:bg-brand-dark transition-colors duration-300" data-translate="resources.guide">Ver Guía</a>
                     </div>
-                    <!-- Card 4 -->
                     <div class="bg-pastel-green-light rounded-xl shadow-lg overflow-hidden flex flex-col">
-                        <div class="p-6 flex-grow">
-                            <h3 class="text-xl font-bold mb-3 text-brand-dark">Boletín y Pódcasts</h3>
-                            <p class="text-gray-600 mb-4">Accede al archivo histórico de nuestros boletines y resúmenes semanales en audio.</p>
-                        </div>
-                        <a href="https://chatgpt-ia-edu.github.io/boletin/" target="_blank" class="block bg-brand-green text-white text-center py-3 font-semibold hover:bg-brand-dark transition-colors duration-300">Explorar</a>
+                        <div class="p-6 flex-grow"><h3 class="text-xl font-bold mb-3 text-brand-dark" data-translate="resources.card4.title">Boletín y Pódcasts</h3><p class="text-gray-600 mb-4" data-translate="resources.card4.desc">Accede al archivo histórico de nuestros boletines y resúmenes semanales en audio.</p></div>
+                        <a href="https://chatgpt-ia-edu.github.io/boletin/" target="_blank" class="block bg-brand-green text-white text-center py-3 font-semibold hover:bg-brand-dark transition-colors duration-300" data-translate="resources.explore">Explorar</a>
                     </div>
-                     <!-- Card 5 -->
                     <div class="bg-pastel-green-light rounded-xl shadow-lg overflow-hidden flex flex-col">
-                        <div class="p-6 flex-grow">
-                            <h3 class="text-xl font-bold mb-3 text-brand-dark">Vibe Coding Educativo</h3>
-                            <p class="text-gray-600 mb-4">Grupo hermano surgido de nuestra comunidad, enfocado en la programación creativa.</p>
-                        </div>
-                        <a href="https://t.me/vceduca" target="_blank" class="block bg-brand-green text-white text-center py-3 font-semibold hover:bg-brand-dark transition-colors duration-300">Unirse al Grupo</a>
+                        <div class="p-6 flex-grow"><h3 class="text-xl font-bold mb-3 text-brand-dark" data-translate="resources.card5.title">Vibe Coding Educativo</h3><p class="text-gray-600 mb-4" data-translate="resources.card5.desc">Grupo hermano surgido de nuestra comunidad, enfocado en la programación creativa.</p></div>
+                        <a href="https://t.me/vceduca" target="_blank" class="block bg-brand-green text-white text-center py-3 font-semibold hover:bg-brand-dark transition-colors duration-300" data-translate="resources.join">Unirse al Grupo</a>
                     </div>
                 </div>
             </div>
@@ -182,16 +162,16 @@
         <!-- Newsletter Section -->
         <section id="boletines" class="py-20 bg-pastel-green-medium">
             <div class="container mx-auto px-6">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Boletines Semanales</h2>
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12" data-translate="newsletter.title">Boletines Semanales</h2>
                 <div class="bg-white rounded-xl shadow-lg p-8 md:p-12 max-w-4xl mx-auto">
-                    <h3 class="text-2xl font-bold mb-4 text-brand-dark">Mantente al día con la IA en Educación</h3>
-                    <p class="text-gray-700 mb-6">Cada semana, resumimos las conversaciones más importantes, las nuevas herramientas y los debates que dan forma al futuro de la educación con inteligencia artificial. Aquí tienes un ejemplo de nuestro contenido:</p>
+                    <h3 class="text-2xl font-bold mb-4 text-brand-dark" data-translate="newsletter.subtitle">Mantente al día con la IA en Educación</h3>
+                    <p class="text-gray-700 mb-6" data-translate="newsletter.desc1">Cada semana, resumimos las conversaciones más importantes, las nuevas herramientas y los debates que dan forma al futuro de la educación con inteligencia artificial. Aquí tienes un ejemplo de nuestro contenido:</p>
                     <blockquote class="border-l-4 border-brand-green pl-6 italic text-gray-600 mb-6">
-                        <p>"El aprendizaje resulta de lo que el estudiante hace y piensa, y solo de lo que el estudiante hace y piensa."</p>
-                        <cite class="mt-2 block not-italic font-semibold">- Herbert A. Simon, Boletín Nº 21</cite>
+                        <p data-translate="newsletter.quote">"El aprendizaje resulta de lo que el estudiante hace y piensa, y solo de lo que el estudiante hace y piensa."</p>
+                        <cite class="mt-2 block not-italic font-semibold" data-translate="newsletter.cite">- Herbert A. Simon, Boletín Nº 21</cite>
                     </blockquote>
-                    <p class="text-gray-700 mb-8">Nuestros boletines están llenos de reflexiones, recursos prácticos y enlaces para que no te pierdas nada.</p>
-                    <a href="https://chatgpt-ia-edu.github.io/boletin/" target="_blank" class="bg-brand-green text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-brand-dark transition-transform duration-300 transform hover:scale-105 inline-block">
+                    <p class="text-gray-700 mb-8" data-translate="newsletter.desc2">Nuestros boletines están llenos de reflexiones, recursos prácticos y enlaces para que no te pierdas nada.</p>
+                    <a href="https://chatgpt-ia-edu.github.io/boletin/" target="_blank" class="bg-brand-green text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-brand-dark transition-transform duration-300 transform hover:scale-105 inline-block" data-translate="newsletter.button">
                         Ver todos los boletines
                     </a>
                 </div>
@@ -209,13 +189,309 @@
                     </svg>
                 </a>
             </div>
-            <p>&copy; 2025 ChatGPT-IA-edu. Una comunidad para aprender y compartir.</p>
-            <p class="text-sm text-gray-400 mt-2">Página diseñada por la comunidad.</p>
+            <p data-translate="footer.community">&copy; 2025 ChatGPT-IA-edu. Una comunidad para aprender y compartir.</p>
+            <div class="mt-4 text-sm text-gray-400 space-x-4">
+                <a href="https://labia.tiddlyhost.com" target="_blank" class="hover:text-white" data-translate="footer.lab">Laboratorio de aplicaciones educativas</a>
+                <span>-</span>
+                <a href="https://bilateria.org" target="_blank" class="hover:text-white" data-translate="footer.author">Aplicación hecha por Juan José de Haro</a>
+                <span>-</span>
+                <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" class="hover:text-white" data-translate="footer.license">Licencia Creative Commons BY-SA</a>
+            </div>
         </div>
     </footer>
 
     <script>
-        // Script para el menú móvil
+        // --- Traducciones ---
+        const translations = {
+            es: {
+                "nav.inicio": "Inicio",
+                "nav.nosotros": "Nosotros",
+                "nav.recursos": "Recursos",
+                "nav.boletines": "Boletines",
+                "uneteTelegram": "Únete a Telegram",
+                "hero.title1": "Explorando la",
+                "hero.title2": "Inteligencia Artificial",
+                "hero.title3": "en la Educación",
+                "hero.subtitle": "Compartimos experiencias, herramientas y aprendizajes sobre IA.",
+                "hero.button": "¡Únete a la Comunidad!",
+                "about.title": "Nuestros Espacios",
+                "about.general.title": "General",
+                "about.general.desc": "El corazón de la comunidad. Aquí fluyen las conversaciones, dudas y descubrimientos del día a día.",
+                "about.boletines.title": "Boletines Semanales",
+                "about.boletines.desc": "Un resumen curado con las noticias, herramientas y debates más relevantes de cada semana.",
+                "about.biblioteca.title": "Biblioteca Digital",
+                "about.biblioteca.desc": "Un espacio colaborativo para compartir publicaciones, artículos y recursos valiosos sobre IA en educación.",
+                "about.principios.title": "Nuestros Principios",
+                "about.principios.desc": "Nos adherimos a los principios del Conocimiento Abierto, fomentando un aprendizaje colaborativo, transparente y accesible para todos.",
+                "about.principios.link": "Conoce el Decálogo &rarr;",
+                "resources.title": "Enlaces de Interés",
+                "resources.card1.title": "Biblioteca Avanzada de Prompts Educativos",
+                "resources.card1.desc": "Un TiddlyWiki repleto de prompts diseñados para el entorno educativo.",
+                "resources.card2.title": "GPT del Grupo: Jorge",
+                "resources.card2.desc": "Interactúa con una IA entrenada con la información y el conocimiento de nuestro grupo.",
+                "resources.card3.title": "IA en Educación para Docentes",
+                "resources.card3.desc": "Guía completa del INTEF con contenidos sobre la aplicación de la IA en la docencia.",
+                "resources.card4.title": "Boletín y Pódcasts",
+                "resources.card4.desc": "Accede al archivo histórico de nuestros boletines y resúmenes semanales en audio.",
+                "resources.card5.title": "Vibe Coding Educativo",
+                "resources.card5.desc": "Grupo hermano surgido de nuestra comunidad, enfocado en la programación creativa.",
+                "resources.visit": "Visitar",
+                "resources.chat": "Chatear con Jorge",
+                "resources.guide": "Ver Guía",
+                "resources.explore": "Explorar",
+                "resources.join": "Unirse al Grupo",
+                "newsletter.title": "Boletines Semanales",
+                "newsletter.subtitle": "Mantente al día con la IA en Educación",
+                "newsletter.desc1": "Cada semana, resumimos las conversaciones más importantes, las nuevas herramientas y los debates que dan forma al futuro de la educación con inteligencia artificial. Aquí tienes un ejemplo de nuestro contenido:",
+                "newsletter.quote": `"El aprendizaje resulta de lo que el estudiante hace y piensa, y solo de lo que el estudiante hace y piensa."`,
+                "newsletter.cite": "- Herbert A. Simon, Boletín Nº 21",
+                "newsletter.desc2": "Nuestros boletines están llenos de reflexiones, recursos prácticos y enlaces para que no te pierdas nada.",
+                "newsletter.button": "Ver todos los boletines",
+                "footer.community": "© 2025 ChatGPT-IA-edu. Una comunidad para aprender y compartir.",
+                "footer.lab": "Laboratorio de aplicaciones educativas",
+                "footer.author": "Aplicación hecha por Juan José de Haro",
+                "footer.license": "Licencia Creative Commons BY-SA",
+            },
+            en: {
+                "nav.inicio": "Home",
+                "nav.nosotros": "About Us",
+                "nav.recursos": "Resources",
+                "nav.boletines": "Newsletters",
+                "uneteTelegram": "Join on Telegram",
+                "hero.title1": "Exploring",
+                "hero.title2": "Artificial Intelligence",
+                "hero.title3": "in Education",
+                "hero.subtitle": "We share experiences, tools, and learnings about AI.",
+                "hero.button": "Join the Community!",
+                "about.title": "Our Spaces",
+                "about.general.title": "General",
+                "about.general.desc": "The heart of the community. This is where daily conversations, questions, and discoveries flow.",
+                "about.boletines.title": "Weekly Newsletters",
+                "about.boletines.desc": "A curated summary with the most relevant news, tools, and discussions of each week.",
+                "about.biblioteca.title": "Digital Library",
+                "about.biblioteca.desc": "A collaborative space to share valuable publications, articles, and resources on AI in education.",
+                "about.principios.title": "Our Principles",
+                "about.principios.desc": "We adhere to the principles of Open Knowledge, promoting collaborative, transparent, and accessible learning for all.",
+                "about.principios.link": "Learn about the Decalogue &rarr;",
+                "resources.title": "Interesting Links",
+                "resources.card1.title": "Advanced Library of Educational Prompts",
+                "resources.card1.desc": "A TiddlyWiki full of prompts designed for the educational environment.",
+                "resources.card2.title": "Group's GPT: Jorge",
+                "resources.card2.desc": "Interact with an AI trained with the information and knowledge of our group.",
+                "resources.card3.title": "AI in Education for Teachers",
+                "resources.card3.desc": "Complete guide from INTEF with content on the application of AI in teaching.",
+                "resources.card4.title": "Newsletter and Podcasts",
+                "resources.card4.desc": "Access the historical archive of our newsletters and weekly audio summaries.",
+                "resources.card5.title": "Educational Vibe Coding",
+                "resources.card5.desc": "A sister group born from our community, focused on creative programming.",
+                "resources.visit": "Visit",
+                "resources.chat": "Chat with Jorge",
+                "resources.guide": "View Guide",
+                "resources.explore": "Explore",
+                "resources.join": "Join Group",
+                "newsletter.title": "Weekly Newsletters",
+                "newsletter.subtitle": "Stay up to date with AI in Education",
+                "newsletter.desc1": "Each week, we summarize the most important conversations, new tools, and debates shaping the future of education with artificial intelligence. Here is an example of our content:",
+                "newsletter.quote": `"Learning results from what the student does and thinks, and only from what the student does and thinks."`,
+                "newsletter.cite": "- Herbert A. Simon, Newsletter No. 21",
+                "newsletter.desc2": "Our newsletters are full of reflections, practical resources, and links so you don't miss a thing.",
+                "newsletter.button": "See all newsletters",
+                "footer.community": "© 2025 ChatGPT-IA-edu. A community to learn and share.",
+                "footer.lab": "Educational applications laboratory",
+                "footer.author": "Application made by Juan José de Haro",
+                "footer.license": "Creative Commons BY-SA License",
+            },
+            ca: {
+                "nav.inicio": "Inici",
+                "nav.nosotros": "Nosaltres",
+                "nav.recursos": "Recursos",
+                "nav.boletines": "Butlletins",
+                "uneteTelegram": "Uneix-te a Telegram",
+                "hero.title1": "Explorant la",
+                "hero.title2": "Intel·ligència Artificial",
+                "hero.title3": "en l'Educació",
+                "hero.subtitle": "Compartim experiències, eines i aprenentatges sobre IA.",
+                "hero.button": "Uneix-te a la Comunitat!",
+                "about.title": "Els Nostres Espais",
+                "about.general.title": "General",
+                "about.general.desc": "El cor de la comunitat. Aquí flueixen les converses, dubtes i descobriments del dia a dia.",
+                "about.boletines.title": "Butlletins Setmanals",
+                "about.boletines.desc": "Un resum curat amb les notícies, eines i debats més rellevants de cada setmana.",
+                "about.biblioteca.title": "Biblioteca Digital",
+                "about.biblioteca.desc": "Un espai col·laboratiu per compartir publicacions, articles i recursos valuosos sobre IA en educació.",
+                "about.principios.title": "Els Nostres Principis",
+                "about.principios.desc": "Ens adherim als principis del Coneixement Obert, fomentant un aprenentatge col·laboratiu, transparent i accessible per a tothom.",
+                "about.principios.link": "Coneix el Decàleg &rarr;",
+                "resources.title": "Enllaços d'Interès",
+                "resources.card1.title": "Biblioteca Avançada de Prompts Educatius",
+                "resources.card1.desc": "Un TiddlyWiki ple de prompts dissenyats per a l'entorn educatiu.",
+                "resources.card2.title": "GPT del Grup: Jorge",
+                "resources.card2.desc": "Interactua amb una IA entrenada amb la informació i el coneixement del nostre grup.",
+                "resources.card3.title": "IA en Educació per a Docents",
+                "resources.card3.desc": "Guia completa de l'INTEF amb continguts sobre l'aplicació de la IA en la docència.",
+                "resources.card4.title": "Butlletí i Pòdcasts",
+                "resources.card4.desc": "Accedeix a l'arxiu històric dels nostres butlletins i resums setmanals en àudio.",
+                "resources.card5.title": "Vibe Coding Educatiu",
+                "resources.card5.desc": "Grup germà sorgit de la nostra comunitat, enfocat a la programació creativa.",
+                "resources.visit": "Visitar",
+                "resources.chat": "Xateja amb en Jorge",
+                "resources.guide": "Veure Guia",
+                "resources.explore": "Explorar",
+                "resources.join": "Unir-se al Grup",
+                "newsletter.title": "Butlletins Setmanals",
+                "newsletter.subtitle": "Estigues al dia amb la IA en Educació",
+                "newsletter.desc1": "Cada setmana, resumim les converses més importants, les noves eines i els debats que donen forma al futur de l'educació amb intel·ligència artificial. Aquí tens un exemple del nostre contingut:",
+                "newsletter.quote": `"L'aprenentatge resulta del que l'estudiant fa i pensa, i només del que l'estudiant fa i pensa."`,
+                "newsletter.cite": "- Herbert A. Simon, Butlletí Nº 21",
+                "newsletter.desc2": "Els nostres butlletins estan plens de reflexions, recursos pràctics i enllaços perquè no et perdis res.",
+                "newsletter.button": "Veure tots els butlletins",
+                "footer.community": "© 2025 ChatGPT-IA-edu. Una comunitat per aprendre i compartir.",
+                "footer.lab": "Laboratori d'aplicacions educatives",
+                "footer.author": "Aplicació feta per Juan José de Haro",
+                "footer.license": "Llicència Creative Commons BY-SA",
+            },
+            gl: {
+                "nav.inicio": "Inicio",
+                "nav.nosotros": "Nós",
+                "nav.recursos": "Recursos",
+                "nav.boletines": "Boletíns",
+                "uneteTelegram": "Únete a Telegram",
+                "hero.title1": "Explorando a",
+                "hero.title2": "Intelixencia Artificial",
+                "hero.title3": "na Educación",
+                "hero.subtitle": "Compartimos experiencias, ferramentas e aprendizaxes sobre IA.",
+                "hero.button": "Únete á Comunidade!",
+                "about.title": "Os Nosos Espazos",
+                "about.general.title": "Xeral",
+                "about.general.desc": "O corazón da comunidade. Aquí flúen as conversas, dúbidas e descubrimentos do día a día.",
+                "about.boletines.title": "Boletíns Semanais",
+                "about.boletines.desc": "Un resumo curado coas noticias, ferramentas e debates máis relevantes de cada semana.",
+                "about.biblioteca.title": "Biblioteca Dixital",
+                "about.biblioteca.desc": "Un espazo colaborativo para compartir publicacións, artigos e recursos valiosos sobre IA en educación.",
+                "about.principios.title": "Os Nosos Principios",
+                "about.principios.desc": "Adherímonos aos principios do Coñecemento Aberto, fomentando unha aprendizaxe colaborativa, transparente e accesible para todos.",
+                "about.principios.link": "Coñece o Decálogo &rarr;",
+                "resources.title": "Ligazóns de Interese",
+                "resources.card1.title": "Biblioteca Avanzada de Prompts Educativos",
+                "resources.card1.desc": "Un TiddlyWiki cheo de prompts deseñados para o contorno educativo.",
+                "resources.card2.title": "GPT do Grupo: Jorge",
+                "resources.card2.desc": "Interactúa cunha IA adestrada coa información e o coñecemento do noso grupo.",
+                "resources.card3.title": "IA en Educación para Docentes",
+                "resources.card3.desc": "Guía completa do INTEF con contidos sobre a aplicación da IA na docencia.",
+                "resources.card4.title": "Boletín e Pódcasts",
+                "resources.card4.desc": "Accede ao arquivo histórico dos nosos boletíns e resumos semanais en audio.",
+                "resources.card5.title": "Vibe Coding Educativo",
+                "resources.card5.desc": "Grupo irmán xurdido da nosa comunidade, enfocado na programación creativa.",
+                "resources.visit": "Visitar",
+                "resources.chat": "Conversar con Jorge",
+                "resources.guide": "Ver Guía",
+                "resources.explore": "Explorar",
+                "resources.join": "Unirse ao Grupo",
+                "newsletter.title": "Boletíns Semanais",
+                "newsletter.subtitle": "Mantente ao día coa IA en Educación",
+                "newsletter.desc1": "Cada semana, resumimos as conversas máis importantes, as novas ferramentas e os debates que dan forma ao futuro da educación con intelixencia artificial. Velaquí un exemplo do noso contido:",
+                "newsletter.quote": `"A aprendizaxe resulta do que o estudante fai e pensa, e só do que o estudante fai e pensa."`,
+                "newsletter.cite": "- Herbert A. Simon, Boletín Nº 21",
+                "newsletter.desc2": "Os nosos boletíns están cheos de reflexións, recursos prácticos e ligazóns para que non perdas nada.",
+                "newsletter.button": "Ver todos os boletíns",
+                "footer.community": "© 2025 ChatGPT-IA-edu. Unha comunidade para aprender e compartir.",
+                "footer.lab": "Laboratorio de aplicacións educativas",
+                "footer.author": "Aplicación feita por Juan José de Haro",
+                "footer.license": "Licenza Creative Commons BY-SA",
+            },
+            eu: {
+                "nav.inicio": "Hasiera",
+                "nav.nosotros": "Guri buruz",
+                "nav.recursos": "Baliabideak",
+                "nav.boletines": "Buletinak",
+                "uneteTelegram": "Sartu Telegramen",
+                "hero.title1": "Adimen Artifiziala",
+                "hero.title2": "Hezkuntzan",
+                "hero.title3": "arakatzzen",
+                "hero.subtitle": "IAri buruzko esperientziak, tresnak eta ikaskuntzak partekatzen ditugu.",
+                "hero.button": "Batu Komunitatera!",
+                "about.title": "Gure Guneak",
+                "about.general.title": "Orokorra",
+                "about.general.desc": "Komunitatearen bihotza. Hemen eguneroko elkarrizketak, zalantzak eta aurkikuntzak isurtzen dira.",
+                "about.boletines.title": "Asteroko Buletinak",
+                "about.boletines.desc": "Asteko albiste, tresna eta eztabaida garrantzitsuenen laburpen zaindua.",
+                "about.biblioteca.title": "Liburutegi Digitala",
+                "about.biblioteca.desc": "Hezkuntzan IAri buruzko argitalpen, artikulu eta baliabide baliotsuak partekatzeko lankidetza-gunea.",
+                "about.principios.title": "Gure Printzipioak",
+                "about.principios.desc": "Ezagutza Irekiaren printzipioei atxikitzen gatzaizkie, guztiontzako ikaskuntza kolaboratibo, gardena eta eskuragarria sustatuz.",
+                "about.principios.link": "Ezagutu Dekalogoa &rarr;",
+                "resources.title": "Esteka Interesgarriak",
+                "resources.card1.title": "Hezkuntza Prompt-en Liburutegi Aurreratua",
+                "resources.card1.desc": "Hezkuntza-ingurunerako diseinatutako prompt-ez beteriko TiddlyWiki bat.",
+                "resources.card2.title": "Taldearen GPTa: Jorge",
+                "resources.card2.desc": "Gure taldearen informazio eta ezagutzarekin trebatutako IA batekin elkarreragin.",
+                "resources.card3.title": "IA Hezkuntzan Irakasleentzat",
+                "resources.card3.desc": "INTEF-en gida osoa, IA irakaskuntzan aplikatzeari buruzko edukiekin.",
+                "resources.card4.title": "Buletina eta Podcastak",
+                "resources.card4.desc": "Sartu gure buletinen eta asteroko audio-laburpenen artxibo historikora.",
+                "resources.card5.title": "Vibe Coding Educativo",
+                "resources.card5.desc": "Gure komunitatetik sortutako talde anaia, sormenezko programazioan oinarritua.",
+                "resources.visit": "Bisitatu",
+                "resources.chat": "Jorge-rekin hitz egin",
+                "resources.guide": "Gida ikusi",
+                "resources.explore": "Arakatu",
+                "resources.join": "Taldean sartu",
+                "newsletter.title": "Asteroko Buletinak",
+                "newsletter.subtitle": "Egon eguneratuta IA Hezkuntzan",
+                "newsletter.desc1": "Astero, adimen artifizialarekin hezkuntzaren etorkizuna moldatzen duten elkarrizketa garrantzitsuenak, tresna berriak eta eztabaidak laburbiltzen ditugu. Hona hemen gure edukiaren adibide bat:",
+                "newsletter.quote": `"Ikasleak egiten eta pentsatzen duenetik dator ikaskuntza, eta soilik ikasleak egiten eta pentsatzen duenetik."`,
+                "newsletter.cite": "- Herbert A. Simon, 21. Buletina",
+                "newsletter.desc2": "Gure buletinak hausnarketa, baliabide praktiko eta estekez beteta daude, ezer galdu ez dezazun.",
+                "newsletter.button": "Buletin guztiak ikusi",
+                "footer.community": "© 2025 ChatGPT-IA-edu. Ikasteko eta partekatzeko komunitate bat.",
+                "footer.lab": "Hezkuntza aplikazioen laborategia",
+                "footer.author": "Juan José de Harok egindako aplikazioa",
+                "footer.license": "Creative Commons BY-SA Lizentzia",
+            }
+        };
+
+        // --- Lógica de Traducción ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const languageSelector = document.getElementById('language-selector');
+            const storedLang = localStorage.getItem('language');
+            const userLang = storedLang || navigator.language.split('-')[0];
+
+            const supportedLangs = ['es', 'en', 'ca', 'gl', 'eu'];
+            const langToSet = supportedLangs.includes(userLang) ? userLang : 'es';
+
+            languageSelector.value = langToSet;
+            document.documentElement.lang = langToSet;
+            translatePage(langToSet);
+
+            languageSelector.addEventListener('change', (event) => {
+                const selectedLang = event.target.value;
+                localStorage.setItem('language', selectedLang);
+                document.documentElement.lang = selectedLang;
+                translatePage(selectedLang);
+            });
+        });
+
+        function translatePage(lang) {
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    // Para el título del héroe que tiene partes
+                    if (key.startsWith('hero.title')) {
+                        const titleContainer = document.querySelector('h1.font-bold');
+                        titleContainer.innerHTML = `
+                            <span data-translate="hero.title1">${translations[lang]['hero.title1']}</span>
+                            <span class="text-brand-green" data-translate="hero.title2">${translations[lang]['hero.title2']}</span>
+                            <span data-translate="hero.title3">${translations[lang]['hero.title3']}</span>
+                        `;
+                    } else {
+                       element.innerHTML = translations[lang][key];
+                    }
+                }
+            });
+        }
+
+
+        // --- Lógica Menú Móvil ---
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
 
@@ -223,7 +499,6 @@
             mobileMenu.classList.toggle('hidden');
         });
 
-        // Cerrar menú al hacer clic en un enlace
         const mobileMenuLinks = mobileMenu.getElementsByTagName('a');
         for (let link of mobileMenuLinks) {
             link.addEventListener('click', () => {
