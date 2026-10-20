@@ -12,6 +12,9 @@ digital» como destino de https://ja.cat/resum.
   cursiva con `__`, un solo `#` en las palabras clave, sin barras invertidas, los
   enlaces en texto plano, la licencia sin frases añadidas, modelos APA 7
   correctos y una comprobación final.
+- Toda la ficha sale del archivo que adjunta la persona; el asistente no busca
+  en internet, salvo la licencia en la página oficial del documento si este no
+  la indica.
 - Copiar, descargar y ver las instrucciones, para usarlas en cualquier otro
   asistente.
 - Interfaz en castellano, catalán, gallego, euskera e inglés; tema claro u

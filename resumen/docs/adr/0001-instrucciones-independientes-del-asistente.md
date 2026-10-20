@@ -20,6 +20,13 @@ que elija cada persona. Las instrucciones están en un único sitio, dentro de
 Las instrucciones se reescriben para que sirvan en cualquier chat: piden el
 documento si todavía no lo hay y no hablan de «fuentes» de un cuaderno.
 
+Toda la ficha sale del archivo que adjunta la persona. El asistente no busca
+nada en internet: si solo recibe un enlace o un título, pide el archivo. La
+única excepción es la licencia: si el documento no dice nada de ella, puede
+consultar la página oficial donde lo publica su autor o su editorial. Así lo
+pidió Juan José de Haro el 20-10-2026, después de que en una prueba Claude
+buscara el documento en la web y montara la ficha con lo que encontró.
+
 ## Alternativas descartadas
 
 - **Cuaderno de Gemini Notebook compartido.** Quien recibe el enlace de un

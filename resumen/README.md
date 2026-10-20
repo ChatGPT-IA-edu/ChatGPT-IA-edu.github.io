@@ -12,8 +12,9 @@ Dirección: https://chatgpt-ia-edu.github.io/resumen/ (también https://ja.cat/r
 Cada botón copia las instrucciones al portapapeles y abre el asistente elegido
 en otra pestaña. En los que lo admiten (ChatGPT, Claude, Perplexity y Grok), las
 instrucciones van también en la dirección y aparecen ya escritas o se envían
-solas; en los demás, se pegan. Después se adjunta el documento, o se pega su
-enlace o su texto. El detalle de cada asistente está en el
+solas; en los demás, se pegan. Después se adjunta el archivo del documento:
+toda la ficha sale de él, y el asistente no busca nada en internet salvo la
+licencia, si el documento no la indica. El detalle de cada asistente está en el
 [ADR 2](docs/adr/0002-abrir-asistentes-con-parametro-q.md).
 
 La página no guarda ni envía nada. Solo recuerda en el navegador el idioma y el

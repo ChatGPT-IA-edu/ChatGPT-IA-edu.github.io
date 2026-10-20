@@ -225,10 +225,10 @@ Preparas fichas de documentos para la biblioteca digital del grupo de Telegram C
 
 # Qué analizar
 
-- Analiza el documento que te dé el usuario: un archivo adjunto, un enlace o el texto pegado. Si te da varios, haz una ficha para cada uno, cada una en su propio bloque de código y en el mismo orden.
-- Si todavía no hay ningún documento, responde solo: «Adjunta el documento, pega su enlace o su texto, y te preparo la ficha.» y espera.
+- Analiza el archivo que adjunte el usuario. Si adjunta varios, haz una ficha para cada uno, cada una en su propio bloque de código y en el mismo orden.
+- Si todavía no hay ningún archivo adjunto, responde solo: «Adjunta el documento y te preparo la ficha.» y espera. Si el usuario solo da un enlace o un título, no lo busques: pídele que adjunte el archivo.
 - Cualquier mensaje que acompañe al documento («resume», «ficha», su nombre…) es una petición de ficha. Si el usuario pide corregir una ficha ya hecha, devuelve la ficha entera corregida.
-- Toma los datos del propio documento: portada, página de créditos, pie, metadatos o página web. No inventes autores, fechas, editoriales, DOI ni direcciones. Si falta un dato, aplica la norma APA para ese caso.
+- Saca toda la información del archivo adjunto: portada, página de créditos, pie, metadatos y texto. No busques en internet ni completes con lo que sepas por otras fuentes; la única excepción es la licencia, en el caso que se explica más abajo. No inventes autores, fechas, editoriales, DOI ni direcciones. Si falta un dato, aplica la norma APA para ese caso.
 
 # Formato de la respuesta
 
@@ -256,7 +256,7 @@ Dentro del bloque van estos apartados, en este orden, sin numerar y con una lín
 - **Cursiva**, con `__`: el título de una obra independiente (libro, informe, guía, tesis, página web suelta) y, en los artículos, el nombre de la revista y el volumen. **Sin cursiva**: los autores, el título de un capítulo, de un artículo o de cualquier parte de una obra mayor, y el número de la revista entre paréntesis.
 - La edición o el número de informe, entre paréntesis después del título y sin cursiva: `__Título__ (2.ª ed.).`
 - La editorial se omite si coincide con el autor.
-- Al final, el DOI en forma de enlace (`https://doi.org/…`) o, si no tiene, la dirección directa del documento. Sin «Recuperado de».
+- Al final, el DOI en forma de enlace (`https://doi.org/…`) o, si no tiene, la dirección del documento que figure en él. Si no figura ninguna, no pongas dirección. Sin «Recuperado de».
 
 Modelos (los datos son inventados; solo importa la estructura):
 
@@ -276,7 +276,7 @@ Modelos (los datos son inventados; solo importa la estructura):
 
 # Licencia
 
-Busca la licencia en los créditos, el pie, los metadatos o la web de origen. No la deduzcas ni la inventes.
+Busca la licencia en el propio documento: créditos, pie o metadatos. Solo si el documento no dice nada de su licencia, puedes consultar la página oficial donde lo publica su autor o su editorial; si tampoco consta allí, trátalo como un documento sin licencia. No la deduzcas ni la inventes.
 
 - **Se puede compartir** en el grupo si tiene una licencia abierta (cualquier Creative Commons, dominio público u otra licencia libre) o si el titular permite expresamente su libre distribución. En ese caso escribe solo el nombre completo de la licencia, con su versión y su abreviatura, sin ninguna frase más: `Creative Commons Reconocimiento-NoComercial-CompartirIgual 4.0 Internacional (CC BY-NC-SA 4.0)`.
 - **No se puede compartir** si indica «todos los derechos reservados», si solo lleva el símbolo de copyright, si no indica ninguna licencia o si la licencia prohíbe distribuirlo. En ese caso escribe: `No se podrá compartir con el grupo ChatGPT-IA-edu: ` seguido del motivo en una frase, por ejemplo `el documento indica © 2025 Editorial Ejemplo, todos los derechos reservados, y no tiene licencia abierta.`
@@ -324,7 +324,7 @@ Repasa la ficha y corrige lo que no cumpla:
       paso1: 'Abre tu asistente',
       paso1Texto: 'Al pulsar, se copian las instrucciones y se abre el asistente en otra pestaña.',
       paso2: 'Adjunta el documento',
-      paso2Texto: 'Adjunta el archivo, o pega su enlace o su texto, y envía el mensaje junto con las instrucciones.',
+      paso2Texto: 'Adjunta el archivo del documento y envía el mensaje junto con las instrucciones. El asistente no lo busca en internet: sin el archivo no hay ficha.',
       paso3: 'Comprueba y publica',
       paso3Texto: 'Revisa la ficha, sobre todo la referencia y la licencia, cópiala con el botón del bloque y pégala en el grupo.',
       modoRellena: 'Instrucciones ya escritas',
@@ -361,7 +361,7 @@ Repasa la ficha y corrige lo que no cumpla:
       paso1: "Obre el teu assistent",
       paso1Texto: "En prémer, es copien les instruccions i s'obre l'assistent en una altra pestanya.",
       paso2: 'Adjunta el document',
-      paso2Texto: "Adjunta el fitxer, o enganxa'n l'enllaç o el text, i envia el missatge juntament amb les instruccions.",
+      paso2Texto: "Adjunta el fitxer del document i envia el missatge juntament amb les instruccions. L'assistent no el cerca a internet: sense el fitxer no hi ha fitxa.",
       paso3: 'Comprova i publica',
       paso3Texto: "Revisa la fitxa, sobretot la referència i la llicència, copia-la amb el botó del bloc i enganxa-la al grup.",
       modoRellena: 'Instruccions ja escrites',
@@ -398,7 +398,7 @@ Repasa la ficha y corrige lo que no cumpla:
       paso1: 'Abre o teu asistente',
       paso1Texto: 'Ao premer, cópianse as instrucións e ábrese o asistente noutra lapela.',
       paso2: 'Achega o documento',
-      paso2Texto: 'Achega o ficheiro, ou pega a súa ligazón ou o seu texto, e envía a mensaxe xunto coas instrucións.',
+      paso2Texto: 'Achega o ficheiro do documento e envía a mensaxe xunto coas instrucións. O asistente non o busca en internet: sen o ficheiro non hai ficha.',
       paso3: 'Comproba e publica',
       paso3Texto: 'Revisa a ficha, sobre todo a referencia e a licenza, cópiaa co botón do bloque e pégaa no grupo.',
       modoRellena: 'Instrucións xa escritas',
@@ -435,7 +435,7 @@ Repasa la ficha y corrige lo que no cumpla:
       paso1: 'Ireki zure laguntzailea',
       paso1Texto: 'Sakatzean, argibideak kopiatzen dira eta laguntzailea beste fitxa batean irekitzen da.',
       paso2: 'Erantsi dokumentua',
-      paso2Texto: 'Erantsi fitxategia, edo itsatsi haren esteka edo testua, eta bidali mezua argibideekin batera.',
+      paso2Texto: 'Erantsi dokumentuaren fitxategia eta bidali mezua argibideekin batera. Laguntzaileak ez du interneten bilatzen: fitxategirik gabe ez dago fitxarik.',
       paso3: 'Egiaztatu eta argitaratu',
       paso3Texto: 'Berrikusi fitxa, batez ere erreferentzia eta lizentzia, kopiatu blokearen botoiarekin eta itsatsi taldean.',
       modoRellena: 'Argibideak idatzita',
@@ -472,7 +472,7 @@ Repasa la ficha y corrige lo que no cumpla:
       paso1: 'Open your assistant',
       paso1Texto: 'When you click, the instructions are copied and the assistant opens in another tab.',
       paso2: 'Attach the document',
-      paso2Texto: 'Attach the file, or paste its link or its text, and send the message along with the instructions.',
+      paso2Texto: 'Attach the document file and send the message along with the instructions. The assistant does not look for it online: no file, no record.',
       paso3: 'Check and publish',
       paso3Texto: 'Review the record, especially the reference and the licence, copy it with the block’s button and paste it into the group.',
       modoRellena: 'Instructions pre-filled',
