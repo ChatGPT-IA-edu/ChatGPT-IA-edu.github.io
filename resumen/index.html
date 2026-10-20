@@ -242,13 +242,15 @@ Dentro del bloque van estos apartados, en este orden, sin numerar y con una lín
 3. **Resumen.** El rótulo `**Resumen**` y, en la línea siguiente, un solo párrafo de unas 55 palabras (entre 50 y 60). Objetivo y centrado en lo que aporta a la docencia o a la investigación educativa: qué propone, para quién y para qué sirve. Claro para cualquier docente, sin tecnicismos innecesarios ni valoraciones como «excelente» o «imprescindible».
 4. **Palabras clave.** El rótulo `**Palabras clave**` y, en la línea siguiente, los hashtags, según las reglas de más abajo.
 5. **Licencia.** El rótulo `**Licencia**` y, en la línea siguiente, la licencia, según las reglas de más abajo.
-6. **Enlace final.** Esta línea, copiada letra por letra, con la dirección en texto plano y sin convertirla en enlace: `(Para crear un resumen como este, utiliza: https://ja.cat/resum)`
+6. **Enlace final.** Esta línea, copiada letra por letra, con la dirección en texto plano y sin convertirla en enlace: `(Para crear un resumen como este, utiliza: https://chatgpt-ia-edu.github.io/resumen/)`
 
 # Formato para Telegram
 
 - Negrita: `**texto**`. Cursiva: `__texto__`, con dos guiones bajos. Nunca uses un solo asterisco, un solo guion bajo ni tres asteriscos.
 - No escapes ningún carácter: nada de `\_`, `\#` ni `\*`.
 - Los enlaces y los DOI van en texto plano (`https://…`), nunca con el formato `[texto](enlace)`.
+- Los marcadores van pegados al texto que marcan, sin espacios por dentro: `**Resumen**`, no `** Resumen **`.
+- Telegram solo interpreta la negrita y la cursiva. Dentro de la ficha no uses ningún otro signo de Markdown (almohadillas de título, guiones de lista, tablas, citas con `>` ni comillas invertidas), porque se verían tal cual.
 
 # Referencia APA 7
 
@@ -270,7 +272,7 @@ Modelos (los datos son inventados; solo importa la estructura):
 # Palabras clave
 
 - Entre 5 y 8 hashtags específicos, en una sola línea, separados por coma y espacio: `#evaluacion_formativa, #aprendizaje_cooperativo, …`
-- Cada uno empieza por un solo `#`, va en minúsculas y sin tildes ni diéresis (la ñ se mantiene). Si tiene varias palabras, se unen con guiones bajos, sin espacios, guiones ni otros signos.
+- Cada uno empieza por un solo `#` seguido de una letra, va en minúsculas y sin tildes ni diéresis (la ñ se mantiene), y solo lleva letras, números y guiones bajos: Telegram corta el hashtag en el primer signo distinto (guion, punto, apóstrofo o espacio). Si tiene varias palabras, se unen con guiones bajos.
 - Prioriza los términos que un docente buscaría: metodología, área o materia, tema concreto, herramienta, destinatarios.
 - Prohibidos, porque todo el grupo trata de ello o no distinguen nada: `#inteligencia_artificial`, `#ia`, `#ai`, `#educacion`, `#docentes`, `#documento`, `#guia`. Tampoco repitas el mismo concepto con dos hashtags.
 - Si el documento se dirige a una etapa educativa concreta, su hashtag va en primer lugar, antes de los demás: `#educacion_infantil`, `#educacion_primaria`, `#educacion_secundaria`, `#bachillerato`, `#formacion_profesional`, `#educacion_superior`, `#educacion_de_personas_adultas`. Si se dirige a varias, uno para cada una. Si es general, no pongas ninguno.
@@ -298,7 +300,9 @@ Repasa la ficha y corrige lo que no cumpla:
 <script>
   'use strict';
 
-  const VERSION = '1.0.0';
+  const VERSION = '1.0.1';
+  // Versión a la que corresponde la última evaluación VCER (ver evaluacion-vcer.md).
+  const VERSION_VCER = '1.0.0';
 
   // Asistentes y cómo reciben las instrucciones (comprobado el 20-10-2026, ver ADR 0002):
   //  - 'rellena': el parámetro ?q= deja el texto escrito en el cuadro, sin enviarlo.
@@ -582,7 +586,7 @@ Repasa la ficha y corrige lo que no cumpla:
       else escribirConEnlaces(el, t(el.dataset.t));
     });
     document.title = t('titulo') + ' · ChatGPT-IA-edu';
-    $('vcer').textContent = t('vcer').replace('{v}', VERSION);
+    $('vcer').textContent = t('vcer').replace('{v}', VERSION_VCER);
     $('cerrar-creditos').setAttribute('aria-label', t('cerrar'));
     $('cerrar-creditos').title = t('cerrar');
     actualizarBotonTema();

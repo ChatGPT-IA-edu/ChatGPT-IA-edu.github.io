@@ -5,7 +5,8 @@ cada persona prefiera, la ficha de un documento para la biblioteca digital del
 grupo de Telegram: título, referencia APA 7, resumen, palabras clave y licencia,
 lista para pegar en Telegram.
 
-Dirección: https://chatgpt-ia-edu.github.io/resumen/ (también https://ja.cat/resum).
+Dirección: https://chatgpt-ia-edu.github.io/resumen/. Es también la que aparece al pie de
+cada ficha.
 
 ## Cómo funciona
 

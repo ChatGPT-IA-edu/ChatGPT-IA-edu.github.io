@@ -45,7 +45,10 @@ buscara el documento en la web y montara la ficha con lo que encontró.
   un proyecto, un GPT o un cuaderno de cada persona.
 - En los asistentes que no admiten el texto en la dirección hay que pegarlo: un
   paso más que con el GPT.
-- El enlace corto ja.cat/resum debe pasar a apuntar a esta página.
+- Desde la versión 1.0.1, la línea final de cada ficha lleva la dirección de
+  esta página en lugar del enlace corto ja.cat/resum, que seguía llevando al
+  GPT. Así la ficha remite a la herramienta vigente sin depender del
+  acortador.
 
 ## Evidencia
 

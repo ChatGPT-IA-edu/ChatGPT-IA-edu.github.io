@@ -1,5 +1,13 @@
 # Notas de versión
 
+## 1.0.1 · 20-10-2026
+
+- La línea final de cada ficha remite a https://chatgpt-ia-edu.github.io/resumen/
+  en lugar de https://ja.cat/resum, que llevaba al GPT anterior.
+- Reglas de formato pensadas para Telegram: los marcadores de negrita y cursiva
+  pegados al texto, ningún otro signo de Markdown dentro de la ficha y hashtags
+  que empiezan por una letra y solo llevan letras, números y guiones bajos.
+
 ## 1.0.0 · 20-10-2026
 
 Primera versión. Sustituye al GPT «Resumen de documentos para la biblioteca
