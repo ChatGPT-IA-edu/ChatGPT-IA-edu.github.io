@@ -1,5 +1,10 @@
 # Notas de versión
 
+## 1.0.2 · 20-10-2026
+
+- Vista previa al compartir el enlace en Telegram y otras redes: título,
+  descripción e imagen (`img/vista-previa.png`, 1200 × 630, 90 KB).
+
 ## 1.0.1 · 20-10-2026
 
 - La línea final de cada ficha remite a https://chatgpt-ia-edu.github.io/resumen/

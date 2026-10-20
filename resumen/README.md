@@ -27,6 +27,7 @@ tema elegidos.
 |---|---|
 | `index.html` | La página entera: estilos, textos en cinco idiomas, lista de asistentes y, en el bloque `<script type="text/plain" id="instrucciones">`, las instrucciones para el asistente. Es el único sitio donde están. |
 | `CHANGELOG.md` | Notas de cada versión. |
+| `img/vista-previa.png` | Imagen de la vista previa al compartir el enlace. Se genera con una captura de 1200 × 630 de `img/vista-previa.html`. |
 | `docs/adr/` | Registro de decisiones. |
 | `evaluacion-vcer.md` | Última evaluación con la rúbrica VCER de la guía «Vibe coding responsable». |
 | `LICENSE.txt` | Licencia del código (AGPL v3 o posterior). |
