@@ -202,6 +202,7 @@
 <footer class="contenedor">
   <p><span data-t="titulo"></span> · <a id="version" href="https://github.com/chatgpt-ia-edu/chatgpt-ia-edu.github.io/blob/main/resumen/CHANGELOG.md" target="_blank" rel="noopener"></a> · Juan José de Haro · <span data-t="licencias"></span></p>
   <p data-t="ia"></p>
+  <p><a id="vcer" href="https://vibe-coding-educativo.github.io/vibe-responsable/vcer/?r=recomendable&amp;f=2026-10&amp;v=1.0.0&amp;t=Resumen%20de%20documentos&amp;u=https%3A%2F%2Fchatgpt-ia-edu.github.io%2Fresumen%2F" target="_blank" rel="noopener"></a></p>
   <p><button type="button" class="enlace-boton" id="abrir-creditos" data-t="creditos"></button></p>
 </footer>
 
@@ -349,6 +350,7 @@ Repasa la ficha y corrige lo que no cumpla:
       temaClaro: 'Tema claro',
       licencias: 'Contenido CC BY-SA 4.0, código AGPL-3.0',
       ia: 'Página e instrucciones hechas con IA (Claude Code, octubre de 2026) bajo la dirección del autor, que fijó los criterios de la ficha. Se han probado con documentos reales en ChatGPT y Claude. Nivel 4 del MIAE.',
+      vcer: 'Evaluación VCER de la versión {v}: Recomendable, octubre de 2026',
       creditos: 'Créditos y licencias',
       creditosTexto: 'Autor: Juan José de Haro, para la comunidad ChatGPT-IA-edu. Contenido bajo licencia CC BY-SA 4.0 y código bajo AGPL-3.0.',
       creditosLucide: 'Iconos: Lucide (licencia ISC).',
@@ -388,6 +390,7 @@ Repasa la ficha y corrige lo que no cumpla:
       temaClaro: 'Tema clar',
       licencias: 'Contingut CC BY-SA 4.0, codi AGPL-3.0',
       ia: "Pàgina i instruccions fetes amb IA (Claude Code, octubre de 2026) sota la direcció de l'autor, que va fixar els criteris de la fitxa. S'han provat amb documents reals a ChatGPT i Claude. Nivell 4 del MIAE.",
+      vcer: 'Avaluació VCER de la versió {v}: Recomanable, octubre de 2026',
       creditos: 'Crèdits i llicències',
       creditosTexto: 'Autor: Juan José de Haro, per a la comunitat ChatGPT-IA-edu. Contingut amb llicència CC BY-SA 4.0 i codi amb AGPL-3.0.',
       creditosLucide: 'Icones: Lucide (llicència ISC).',
@@ -427,6 +430,7 @@ Repasa la ficha y corrige lo que no cumpla:
       temaClaro: 'Tema claro',
       licencias: 'Contido CC BY-SA 4.0, código AGPL-3.0',
       ia: 'Páxina e instrucións feitas con IA (Claude Code, outubro de 2026) baixo a dirección do autor, que fixou os criterios da ficha. Probáronse con documentos reais en ChatGPT e Claude. Nivel 4 do MIAE.',
+      vcer: 'Avaliación VCER da versión {v}: Recomendable, outubro de 2026',
       creditos: 'Créditos e licenzas',
       creditosTexto: 'Autor: Juan José de Haro, para a comunidade ChatGPT-IA-edu. Contido baixo licenza CC BY-SA 4.0 e código baixo AGPL-3.0.',
       creditosLucide: 'Iconas: Lucide (licenza ISC).',
@@ -466,6 +470,7 @@ Repasa la ficha y corrige lo que no cumpla:
       temaClaro: 'Gai argia',
       licencias: 'Edukia CC BY-SA 4.0, kodea AGPL-3.0',
       ia: 'AArekin egindako orria eta argibideak (Claude Code, 2026ko urria), egilearen zuzendaritzapean; egileak finkatu zituen fitxaren irizpideak. Benetako dokumentuekin probatu dira ChatGPTn eta Clauden. MIAEren 4. maila.',
+      vcer: '{v} bertsioaren VCER ebaluazioa: Gomendagarria, 2026ko urria',
       creditos: 'Kredituak eta lizentziak',
       creditosTexto: 'Egilea: Juan José de Haro, ChatGPT-IA-edu komunitatearentzat. Edukia CC BY-SA 4.0 lizentziapean eta kodea AGPL-3.0 lizentziapean.',
       creditosLucide: 'Ikonoak: Lucide (ISC lizentzia).',
@@ -505,6 +510,7 @@ Repasa la ficha y corrige lo que no cumpla:
       temaClaro: 'Light theme',
       licencias: 'Content CC BY-SA 4.0, code AGPL-3.0',
       ia: 'Page and instructions made with AI (Claude Code, October 2026) under the direction of the author, who set the criteria for the record. They have been tested with real documents in ChatGPT and Claude. MIAE level 4.',
+      vcer: 'VCER evaluation of version {v}: Recommended, October 2026',
       creditos: 'Credits and licences',
       creditosTexto: 'Author: Juan José de Haro, for the ChatGPT-IA-edu community. Content under the CC BY-SA 4.0 licence and code under AGPL-3.0.',
       creditosLucide: 'Icons: Lucide (ISC licence).',
@@ -576,6 +582,7 @@ Repasa la ficha y corrige lo que no cumpla:
       else escribirConEnlaces(el, t(el.dataset.t));
     });
     document.title = t('titulo') + ' · ChatGPT-IA-edu';
+    $('vcer').textContent = t('vcer').replace('{v}', VERSION);
     $('cerrar-creditos').setAttribute('aria-label', t('cerrar'));
     $('cerrar-creditos').title = t('cerrar');
     actualizarBotonTema();
