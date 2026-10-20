@@ -21,7 +21,8 @@ después:
 | Modo | Asistentes | Qué ve la persona |
 |---|---|---|
 | `rellena` | ChatGPT, Claude | Las instrucciones escritas en el cuadro, sin enviar |
-| `envia` | Perplexity, Grok | Las instrucciones se envían al abrir (Grok pide confirmarlo); el asistente pide el documento |
+| `envia` | Perplexity | Las instrucciones se envían al abrir; el asistente pide el documento |
+| `confirma` | Grok | El asistente pide confirmar el envío; después pide el documento |
 | `pegar` | Gemini, Copilot, Le Chat, Lumo, DeepSeek | El asistente vacío; hay que pegar |
 
 Como la copia se hace siempre, si un asistente deja de admitir el parámetro, o

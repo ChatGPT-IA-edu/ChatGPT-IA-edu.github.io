@@ -76,7 +76,7 @@
 
   /* Pasos */
   ol.pasos { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 16px; }
-  .paso { background: var(--tarjeta); border: 1px solid var(--borde); border-radius: 12px; padding: 16px; }
+  .paso { background: var(--tarjeta); border: 1px solid var(--borde); border-radius: 12px; padding: 16px; min-width: 0; }
   .paso h2 { font-size: 1.1rem; margin: 0 0 4px; display: flex; gap: 10px; align-items: baseline; }
   .num {
     display: inline-grid; place-items: center; flex: none;
@@ -86,9 +86,9 @@
   .paso p { margin: 4px 0 0; }
 
   /* Botones de los asistentes */
-  .asistentes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 12px; }
+  .asistentes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 12px; }
   @media (max-width: 560px) {
-    .asistentes { grid-template-columns: repeat(2, 1fr); }
+    .asistentes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     /* Con un número impar de asistentes, el último ocupa toda la fila. */
     .asistente:last-child:nth-child(odd) { grid-column: span 2; }
   }
@@ -96,7 +96,7 @@
     font: inherit; text-align: left; cursor: pointer;
     background: var(--marca-fondo); color: var(--texto);
     border: 1px solid var(--borde); border-radius: 10px; padding: 10px 12px;
-    display: grid; gap: 2px; align-content: start;
+    display: grid; gap: 2px; align-content: start; min-width: 0; overflow-wrap: anywhere;
   }
   .asistente:hover { border-color: var(--marca-clara); }
   .asistente .nombre { font-weight: 600; display: flex; align-items: center; justify-content: space-between; gap: 6px; color: var(--marca); }
@@ -194,7 +194,7 @@
     </div>
     <details>
       <summary data-t="ver"></summary>
-      <pre id="texto-instrucciones"></pre>
+      <pre id="texto-instrucciones" tabindex="0"></pre>
     </details>
   </section>
 </main>
@@ -272,13 +272,13 @@ Modelos (los datos son inventados; solo importa la estructura):
 - Cada uno empieza por un solo `#`, va en minúsculas y sin tildes ni diéresis (la ñ se mantiene). Si tiene varias palabras, se unen con guiones bajos, sin espacios, guiones ni otros signos.
 - Prioriza los términos que un docente buscaría: metodología, área o materia, tema concreto, herramienta, destinatarios.
 - Prohibidos, porque todo el grupo trata de ello o no distinguen nada: `#inteligencia_artificial`, `#ia`, `#ai`, `#educacion`, `#docentes`, `#documento`, `#guia`. Tampoco repitas el mismo concepto con dos hashtags.
-- Si el documento se dirige a una etapa educativa concreta, su hashtag va en primer lugar, antes de los demás: `#educacion_infantil`, `#educacion_primaria`, `#educacion_secundaria`, `#bachillerato`, `#formacion_profesional`, `#educacion_superior`, `#educacion_de_adultos`. Si se dirige a varias, uno para cada una. Si es general, no pongas ninguno.
+- Si el documento se dirige a una etapa educativa concreta, su hashtag va en primer lugar, antes de los demás: `#educacion_infantil`, `#educacion_primaria`, `#educacion_secundaria`, `#bachillerato`, `#formacion_profesional`, `#educacion_superior`, `#educacion_de_personas_adultas`. Si se dirige a varias, uno para cada una. Si es general, no pongas ninguno.
 
 # Licencia
 
 Busca la licencia en el propio documento: créditos, pie o metadatos. Solo si el documento no dice nada de su licencia, puedes consultar la página oficial donde lo publica su autor o su editorial; si tampoco consta allí, trátalo como un documento sin licencia. No la deduzcas ni la inventes.
 
-- **Se puede compartir** en el grupo si tiene una licencia abierta (cualquier Creative Commons, dominio público u otra licencia libre) o si el titular permite expresamente su libre distribución. En ese caso escribe solo el nombre completo de la licencia, con su versión y su abreviatura, sin ninguna frase más: `Creative Commons Reconocimiento-NoComercial-CompartirIgual 4.0 Internacional (CC BY-NC-SA 4.0)`.
+- **Se puede compartir** en el grupo si tiene una licencia abierta (cualquier Creative Commons, dominio público u otra licencia libre) o si el titular permite expresamente su libre distribución. En ese caso escribe solo el nombre completo de la licencia, tal como figure en el documento, con su versión y su abreviatura, sin ninguna frase más: `Creative Commons Atribución/Reconocimiento-NoComercial-CompartirIgual 4.0 Internacional (CC BY-NC-SA 4.0)`.
 - **No se puede compartir** si indica «todos los derechos reservados», si solo lleva el símbolo de copyright, si no indica ninguna licencia o si la licencia prohíbe distribuirlo. En ese caso escribe: `No se podrá compartir con el grupo ChatGPT-IA-edu: ` seguido del motivo en una frase, por ejemplo `el documento indica © 2025 Editorial Ejemplo, todos los derechos reservados, y no tiene licencia abierta.`
 
 # Comprobación antes de responder
@@ -301,7 +301,8 @@ Repasa la ficha y corrige lo que no cumpla:
 
   // Asistentes y cómo reciben las instrucciones (comprobado el 20-10-2026, ver ADR 0002):
   //  - 'rellena': el parámetro ?q= deja el texto escrito en el cuadro, sin enviarlo.
-  //  - 'envia':   el parámetro ?q= envía el texto nada más abrir (Grok pide confirmarlo).
+  //  - 'envia':   el parámetro ?q= envía el texto nada más abrir.
+  //  - 'confirma': el parámetro ?q= prepara el envío y el asistente pide confirmarlo.
   //  - 'pegar':   no admite el texto en la dirección; hay que pegarlo.
   const ASISTENTES = [
     { nombre: 'ChatGPT', url: 'https://chatgpt.com/', modo: 'rellena' },
@@ -312,7 +313,7 @@ Repasa la ficha y corrige lo que no cumpla:
     { nombre: 'Lumo', url: 'https://lumo.proton.me/', modo: 'pegar' },
     { nombre: 'DeepSeek', url: 'https://chat.deepseek.com/', modo: 'pegar' },
     { nombre: 'Perplexity', url: 'https://www.perplexity.ai/', modo: 'envia' },
-    { nombre: 'Grok', url: 'https://grok.com/', modo: 'envia' }
+    { nombre: 'Grok', url: 'https://grok.com/', modo: 'confirma' }
   ];
 
   const TEXTOS = {
@@ -329,6 +330,8 @@ Repasa la ficha y corrige lo que no cumpla:
       paso3Texto: 'Revisa la ficha, sobre todo la referencia y la licencia, cópiala con el botón del bloque y pégala en el grupo.',
       modoRellena: 'Instrucciones ya escritas',
       modoEnvia: 'Se envían solas',
+      modoConfirma: 'Se envían al confirmar',
+      estadoConfirma: 'Instrucciones copiadas. {a} pide confirmar el envío; después, cuando te pida el documento, adjúntalo.',
       modoPegar: 'Pegar instrucciones',
       estadoRellena: 'Instrucciones copiadas. En {a} deberían aparecer ya escritas; si el cuadro está vacío, pégalas. Adjunta el documento y envía.',
       estadoEnvia: 'Instrucciones copiadas. {a} las envía al abrirse; cuando te pida el documento, adjúntalo.',
@@ -345,7 +348,7 @@ Repasa la ficha y corrige lo que no cumpla:
       temaOscuro: 'Tema oscuro',
       temaClaro: 'Tema claro',
       licencias: 'Contenido CC BY-SA 4.0, código AGPL-3.0',
-      ia: 'Página e instrucciones hechas con IA (Claude Code, octubre de 2026), dirigidas y revisadas por el autor. Nivel 4 del MIAE.',
+      ia: 'Página e instrucciones hechas con IA (Claude Code, octubre de 2026) bajo la dirección del autor, que fijó los criterios de la ficha. Se han probado con documentos reales en ChatGPT y Claude. Nivel 4 del MIAE.',
       creditos: 'Créditos y licencias',
       creditosTexto: 'Autor: Juan José de Haro, para la comunidad ChatGPT-IA-edu. Contenido bajo licencia CC BY-SA 4.0 y código bajo AGPL-3.0.',
       creditosLucide: 'Iconos: Lucide (licencia ISC).',
@@ -366,6 +369,8 @@ Repasa la ficha y corrige lo que no cumpla:
       paso3Texto: "Revisa la fitxa, sobretot la referència i la llicència, copia-la amb el botó del bloc i enganxa-la al grup.",
       modoRellena: 'Instruccions ja escrites',
       modoEnvia: "S'envien soles",
+      modoConfirma: 'S\'envien en confirmar',
+      estadoConfirma: "Instruccions copiades. {a} demana confirmar l'enviament; després, quan et demani el document, adjunta'l.",
       modoPegar: 'Enganxar instruccions',
       estadoRellena: "Instruccions copiades. A {a} haurien d'aparèixer ja escrites; si el quadre és buit, enganxa-les. Adjunta el document i envia.",
       estadoEnvia: "Instruccions copiades. {a} les envia en obrir-se; quan et demani el document, adjunta'l.",
@@ -382,7 +387,7 @@ Repasa la ficha y corrige lo que no cumpla:
       temaOscuro: 'Tema fosc',
       temaClaro: 'Tema clar',
       licencias: 'Contingut CC BY-SA 4.0, codi AGPL-3.0',
-      ia: "Pàgina i instruccions fetes amb IA (Claude Code, octubre de 2026), dirigides i revisades per l'autor. Nivell 4 del MIAE.",
+      ia: "Pàgina i instruccions fetes amb IA (Claude Code, octubre de 2026) sota la direcció de l'autor, que va fixar els criteris de la fitxa. S'han provat amb documents reals a ChatGPT i Claude. Nivell 4 del MIAE.",
       creditos: 'Crèdits i llicències',
       creditosTexto: 'Autor: Juan José de Haro, per a la comunitat ChatGPT-IA-edu. Contingut amb llicència CC BY-SA 4.0 i codi amb AGPL-3.0.',
       creditosLucide: 'Icones: Lucide (llicència ISC).',
@@ -403,6 +408,8 @@ Repasa la ficha y corrige lo que no cumpla:
       paso3Texto: 'Revisa a ficha, sobre todo a referencia e a licenza, cópiaa co botón do bloque e pégaa no grupo.',
       modoRellena: 'Instrucións xa escritas',
       modoEnvia: 'Envíanse soas',
+      modoConfirma: 'Envíanse ao confirmar',
+      estadoConfirma: 'Instrucións copiadas. {a} pide confirmar o envío; despois, cando che pida o documento, achégao.',
       modoPegar: 'Pegar instrucións',
       estadoRellena: 'Instrucións copiadas. En {a} deberían aparecer xa escritas; se a caixa está baleira, pégaas. Achega o documento e envía.',
       estadoEnvia: 'Instrucións copiadas. {a} envíaas ao abrirse; cando che pida o documento, achégao.',
@@ -419,7 +426,7 @@ Repasa la ficha y corrige lo que no cumpla:
       temaOscuro: 'Tema escuro',
       temaClaro: 'Tema claro',
       licencias: 'Contido CC BY-SA 4.0, código AGPL-3.0',
-      ia: 'Páxina e instrucións feitas con IA (Claude Code, outubro de 2026), dirixidas e revisadas polo autor. Nivel 4 do MIAE.',
+      ia: 'Páxina e instrucións feitas con IA (Claude Code, outubro de 2026) baixo a dirección do autor, que fixou os criterios da ficha. Probáronse con documentos reais en ChatGPT e Claude. Nivel 4 do MIAE.',
       creditos: 'Créditos e licenzas',
       creditosTexto: 'Autor: Juan José de Haro, para a comunidade ChatGPT-IA-edu. Contido baixo licenza CC BY-SA 4.0 e código baixo AGPL-3.0.',
       creditosLucide: 'Iconas: Lucide (licenza ISC).',
@@ -440,6 +447,8 @@ Repasa la ficha y corrige lo que no cumpla:
       paso3Texto: 'Berrikusi fitxa, batez ere erreferentzia eta lizentzia, kopiatu blokearen botoiarekin eta itsatsi taldean.',
       modoRellena: 'Argibideak idatzita',
       modoEnvia: 'Berez bidaltzen dira',
+      modoConfirma: 'Berretsitakoan bidaltzen dira',
+      estadoConfirma: 'Argibideak kopiatu dira. {a}(e)k bidalketa berresteko eskatzen du; gero, dokumentua eskatzen dizunean, erantsi.',
       modoPegar: 'Itsatsi argibideak',
       estadoRellena: 'Argibideak kopiatu dira. {a}(e)n idatzita agertu beharko lukete; laukia hutsik badago, itsatsi. Erantsi dokumentua eta bidali.',
       estadoEnvia: 'Argibideak kopiatu dira. {a}(e)k irekitzean bidaltzen ditu; dokumentua eskatzen dizunean, erantsi.',
@@ -456,7 +465,7 @@ Repasa la ficha y corrige lo que no cumpla:
       temaOscuro: 'Gai iluna',
       temaClaro: 'Gai argia',
       licencias: 'Edukia CC BY-SA 4.0, kodea AGPL-3.0',
-      ia: 'AArekin egindako orria eta argibideak (Claude Code, 2026ko urria), egileak zuzendu eta berrikusiak. MIAEren 4. maila.',
+      ia: 'AArekin egindako orria eta argibideak (Claude Code, 2026ko urria), egilearen zuzendaritzapean; egileak finkatu zituen fitxaren irizpideak. Benetako dokumentuekin probatu dira ChatGPTn eta Clauden. MIAEren 4. maila.',
       creditos: 'Kredituak eta lizentziak',
       creditosTexto: 'Egilea: Juan José de Haro, ChatGPT-IA-edu komunitatearentzat. Edukia CC BY-SA 4.0 lizentziapean eta kodea AGPL-3.0 lizentziapean.',
       creditosLucide: 'Ikonoak: Lucide (ISC lizentzia).',
@@ -477,6 +486,8 @@ Repasa la ficha y corrige lo que no cumpla:
       paso3Texto: 'Review the record, especially the reference and the licence, copy it with the block’s button and paste it into the group.',
       modoRellena: 'Instructions pre-filled',
       modoEnvia: 'Sent automatically',
+      modoConfirma: 'Sent on confirmation',
+      estadoConfirma: 'Instructions copied. {a} asks you to confirm sending them; then, when it asks for the document, attach it.',
       modoPegar: 'Paste instructions',
       estadoRellena: 'Instructions copied. In {a} they should already be written; if the box is empty, paste them. Attach the document and send.',
       estadoEnvia: 'Instructions copied. {a} sends them when it opens; when it asks for the document, attach it.',
@@ -493,7 +504,7 @@ Repasa la ficha y corrige lo que no cumpla:
       temaOscuro: 'Dark theme',
       temaClaro: 'Light theme',
       licencias: 'Content CC BY-SA 4.0, code AGPL-3.0',
-      ia: 'Page and instructions made with AI (Claude Code, October 2026), directed and reviewed by the author. MIAE level 4.',
+      ia: 'Page and instructions made with AI (Claude Code, October 2026) under the direction of the author, who set the criteria for the record. They have been tested with real documents in ChatGPT and Claude. MIAE level 4.',
       creditos: 'Credits and licences',
       creditosTexto: 'Author: Juan José de Haro, for the ChatGPT-IA-edu community. Content under the CC BY-SA 4.0 licence and code under AGPL-3.0.',
       creditosLucide: 'Icons: Lucide (ISC licence).',
@@ -635,8 +646,8 @@ Repasa la ficha y corrige lo que no cumpla:
 
   /* --- Asistentes --- */
 
-  const CLAVE_MODO = { rellena: 'modoRellena', envia: 'modoEnvia', pegar: 'modoPegar' };
-  const CLAVE_ESTADO = { rellena: 'estadoRellena', envia: 'estadoEnvia', pegar: 'estadoPegar' };
+  const CLAVE_MODO = { rellena: 'modoRellena', envia: 'modoEnvia', confirma: 'modoConfirma', pegar: 'modoPegar' };
+  const CLAVE_ESTADO = { rellena: 'estadoRellena', envia: 'estadoEnvia', confirma: 'estadoConfirma', pegar: 'estadoPegar' };
 
   function direccion(asistente) {
     if (asistente.modo === 'pegar') return asistente.url;
