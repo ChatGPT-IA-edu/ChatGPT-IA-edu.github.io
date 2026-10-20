@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<!-- SPDX-License-Identifier: AGPL-3.0-or-later -->
+<!-- Resumen de documentos · Comunidad ChatGPT-IA-edu · Juan José de Haro -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resumen de documentos · ChatGPT-IA-edu</title>
+<meta name="description" content="Prepara con el asistente de IA que prefieras la ficha de un documento para la biblioteca digital del grupo ChatGPT-IA-edu.">
+<meta name="author" content="Juan José de Haro">
+<link rel="icon" href="../favicon.ico">
+<script>
+  // Aplica el tema antes de pintar la página, para que no parpadee.
+  // Sigue al del dispositivo salvo que se haya elegido otro.
+  (function () {
+    let guardado = null;
+    try { guardado = localStorage.getItem('resumen.oscuro'); } catch (e) { /* sin almacenamiento */ }
+    const oscuro = guardado === null ? matchMedia('(prefers-color-scheme: dark)').matches : guardado === '1';
+    document.documentElement.dataset.theme = oscuro ? 'dark' : 'light';
+  })();
+</script>
+<style>
+  :root {
+    --fondo: #f0fff4;
+    --tarjeta: #ffffff;
+    --texto: #1f2937;
+    --texto-suave: #4b5563;
+    --marca: #064e3b;
+    --marca-clara: #10b981;
+    --marca-fondo: #d1fae5;
+    --borde: #a7f3d0;
+    --foco: #0f766e;
+    --aviso: #065f46;
+    color-scheme: light;
+  }
+  :root[data-theme="dark"] {
+    --fondo: #06201a;
+    --tarjeta: #0c2e25;
+    --texto: #e5f4ee;
+    --texto-suave: #b4cdc4;
+    --marca: #6ee7b7;
+    --marca-clara: #34d399;
+    --marca-fondo: #12392f;
+    --borde: #1f5a4a;
+    --foco: #a7f3d0;
+    --aviso: #a7f3d0;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--fondo);
+    color: var(--texto);
+    font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, sans-serif;
+  }
+  a { color: var(--marca); }
+  :focus-visible { outline: 3px solid var(--foco); outline-offset: 2px; }
+  .contenedor { max-width: 860px; margin: 0 auto; padding: 0 16px; }
+
+  /* Cabecera */
+  header { padding: 12px 0 0; }
+  .barra { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .grupo { font-weight: 600; text-decoration: none; color: var(--marca); }
+  .controles { display: flex; align-items: center; gap: 8px; }
+  select, .boton-icono {
+    font: inherit; color: var(--texto); background: var(--tarjeta);
+    border: 1px solid var(--borde); border-radius: 8px; min-height: 40px;
+  }
+  select { padding: 0 8px; }
+  .boton-icono { width: 40px; display: inline-grid; place-items: center; cursor: pointer; }
+  svg.icono { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+
+  h1 { font-size: clamp(1.6rem, 4vw, 2.2rem); line-height: 1.2; margin: 24px 0 8px; color: var(--marca); }
+  .intro { margin: 0 0 8px; max-width: 65ch; }
+  .nota { margin: 0; color: var(--texto-suave); font-size: .95rem; }
+
+  /* Pasos */
+  ol.pasos { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 16px; }
+  .paso { background: var(--tarjeta); border: 1px solid var(--borde); border-radius: 12px; padding: 16px; }
+  .paso h2 { font-size: 1.1rem; margin: 0 0 4px; display: flex; gap: 10px; align-items: baseline; }
+  .num {
+    display: inline-grid; place-items: center; flex: none;
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--marca); color: var(--tarjeta); font-size: .95rem;
+  }
+  .paso p { margin: 4px 0 0; }
+
+  /* Botones de los asistentes */
+  .asistentes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 12px; }
+  @media (max-width: 560px) {
+    .asistentes { grid-template-columns: repeat(2, 1fr); }
+    /* Con un número impar de asistentes, el último ocupa toda la fila. */
+    .asistente:last-child:nth-child(odd) { grid-column: span 2; }
+  }
+  .asistente {
+    font: inherit; text-align: left; cursor: pointer;
+    background: var(--marca-fondo); color: var(--texto);
+    border: 1px solid var(--borde); border-radius: 10px; padding: 10px 12px;
+    display: grid; gap: 2px; align-content: start;
+  }
+  .asistente:hover { border-color: var(--marca-clara); }
+  .asistente .nombre { font-weight: 600; display: flex; align-items: center; justify-content: space-between; gap: 6px; color: var(--marca); }
+  .asistente .modo { font-size: .85rem; color: var(--texto-suave); }
+
+  .estado {
+    margin: 12px 0 0; padding: 10px 12px; border-radius: 8px;
+    border-left: 4px solid var(--marca-clara); background: var(--marca-fondo); color: var(--aviso);
+  }
+  .estado:empty { display: none; }
+
+  /* Instrucciones */
+  .acciones { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .boton {
+    font: inherit; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+    background: var(--marca); color: var(--tarjeta); border: 0; border-radius: 8px; padding: 8px 14px; min-height: 40px;
+  }
+  details { margin-top: 12px; }
+  summary { cursor: pointer; color: var(--marca); font-weight: 600; }
+  pre {
+    white-space: pre-wrap; word-break: break-word; max-height: 50vh; overflow: auto;
+    background: var(--fondo); border: 1px solid var(--borde); border-radius: 8px; padding: 12px; font-size: .85rem;
+  }
+
+  /* Pie y créditos */
+  footer { margin: 32px 0 24px; color: var(--texto-suave); font-size: .9rem; }
+  footer p { margin: 4px 0; }
+  .enlace-boton { font: inherit; background: none; border: 0; padding: 0; color: var(--marca); text-decoration: underline; cursor: pointer; }
+  dialog {
+    max-width: min(560px, calc(100vw - 32px)); border: 1px solid var(--borde); border-radius: 12px;
+    background: var(--tarjeta); color: var(--texto); padding: 20px;
+  }
+  dialog::backdrop { background: rgb(0 0 0 / .45); }
+  dialog h2 { margin: 0 0 8px; font-size: 1.2rem; }
+  .cerrar { position: absolute; top: 8px; right: 8px; }
+  .solo-lectores { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+</style>
+</head>
+<body>
+<!-- Iconos de Lucide (ISC), copiados como SVG en línea -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+</svg>
+
+<header class="contenedor">
+  <div class="barra">
+    <a class="grupo" href="../">ChatGPT-IA-edu</a>
+    <div class="controles">
+      <label class="solo-lectores" for="idioma" data-t="idioma"></label>
+      <select id="idioma">
+        <option value="es">Español</option>
+        <option value="ca">Català</option>
+        <option value="gl">Galego</option>
+        <option value="eu">Euskara</option>
+        <option value="en">English</option>
+      </select>
+      <button type="button" id="boton-tema" class="boton-icono"><svg class="icono" aria-hidden="true"><use href="#i-moon"></use></svg></button>
+    </div>
+  </div>
+</header>
+
+<main class="contenedor">
+  <h1 data-t="titulo"></h1>
+  <p class="intro" data-t="intro"></p>
+  <p class="nota" data-t="notaIdioma"></p>
+
+  <ol class="pasos">
+    <li class="paso">
+      <h2><span class="num" aria-hidden="true">1</span><span data-t="paso1"></span></h2>
+      <p data-t="paso1Texto"></p>
+      <div class="asistentes" id="asistentes"></div>
+      <p class="estado" id="estado" role="status" aria-live="polite"></p>
+    </li>
+    <li class="paso">
+      <h2><span class="num" aria-hidden="true">2</span><span data-t="paso2"></span></h2>
+      <p data-t="paso2Texto"></p>
+    </li>
+    <li class="paso">
+      <h2><span class="num" aria-hidden="true">3</span><span data-t="paso3"></span></h2>
+      <p data-t="paso3Texto"></p>
+    </li>
+  </ol>
+
+  <section class="paso" style="margin-top:16px" aria-labelledby="titulo-instrucciones">
+    <h2 id="titulo-instrucciones" style="font-size:1.1rem;margin:0" data-t="instrucciones"></h2>
+    <p data-t="instruccionesTexto"></p>
+    <div class="acciones">
+      <button type="button" class="boton" id="copiar"><svg class="icono" aria-hidden="true"><use href="#i-copy"></use></svg><span data-t="copiar"></span></button>
+      <button type="button" class="boton" id="descargar"><svg class="icono" aria-hidden="true"><use href="#i-download"></use></svg><span data-t="descargar"></span></button>
+    </div>
+    <details>
+      <summary data-t="ver"></summary>
+      <pre id="texto-instrucciones"></pre>
+    </details>
+  </section>
+</main>
+
+<footer class="contenedor">
+  <p><span data-t="titulo"></span> · <a id="version" href="https://github.com/chatgpt-ia-edu/chatgpt-ia-edu.github.io/blob/main/resumen/CHANGELOG.md" target="_blank" rel="noopener"></a> · Juan José de Haro · <span data-t="licencias"></span></p>
+  <p data-t="ia"></p>
+  <p><button type="button" class="enlace-boton" id="abrir-creditos" data-t="creditos"></button></p>
+</footer>
+
+<dialog id="creditos" aria-labelledby="titulo-creditos">
+  <button type="button" class="boton-icono cerrar" id="cerrar-creditos"><svg class="icono" aria-hidden="true"><use href="#i-x"></use></svg></button>
+  <h2 id="titulo-creditos" data-t="creditos"></h2>
+  <p data-t="creditosTexto"></p>
+  <p data-t="creditosLucide"></p>
+  <p data-t="creditosPrivacidad"></p>
+  <p data-t="creditosTraduccion"></p>
+</dialog>
+
+<!--
+  Instrucciones que se dan al asistente. Es el único sitio donde están:
+  la página las copia, las descarga y las muestra desde aquí.
+-->
+<script type="text/plain" id="instrucciones">
+# Función
+
+Preparas fichas de documentos para la biblioteca digital del grupo de Telegram ChatGPT-IA-edu, una comunidad de docentes. Cada ficha se copia y se pega tal cual en Telegram. Respondes siempre en español, aunque el documento esté en otro idioma; solo el título original se mantiene en su idioma.
+
+# Qué analizar
+
+- Analiza el documento que te dé el usuario: un archivo adjunto, un enlace o el texto pegado. Si te da varios, haz una ficha para cada uno, cada una en su propio bloque de código y en el mismo orden.
+- Si todavía no hay ningún documento, responde solo: «Adjunta el documento, pega su enlace o su texto, y te preparo la ficha.» y espera.
+- Cualquier mensaje que acompañe al documento («resume», «ficha», su nombre…) es una petición de ficha. Si el usuario pide corregir una ficha ya hecha, devuelve la ficha entera corregida.
+- Toma los datos del propio documento: portada, página de créditos, pie, metadatos o página web. No inventes autores, fechas, editoriales, DOI ni direcciones. Si falta un dato, aplica la norma APA para ese caso.
+
+# Formato de la respuesta
+
+Toda la respuesta es un bloque de código Markdown (tres comillas invertidas seguidas de `markdown` al abrir y tres comillas invertidas al cerrar). Fuera del bloque no escribas nada: ni presentación, ni comentarios, ni aclaraciones, ni citas o números de referencia al documento.
+
+Dentro del bloque van estos apartados, en este orden, sin numerar y con una línea vacía entre uno y otro:
+
+1. **Título.** El título original del documento, en su idioma, en mayúsculas y negrita: `**TÍTULO: SUBTÍTULO**`.
+2. **Referencia.** Sin rótulo. La referencia completa en estilo APA 7, según las reglas de más abajo.
+3. **Resumen.** El rótulo `**Resumen**` y, en la línea siguiente, un solo párrafo de unas 55 palabras (entre 50 y 60). Objetivo y centrado en lo que aporta a la docencia o a la investigación educativa: qué propone, para quién y para qué sirve. Claro para cualquier docente, sin tecnicismos innecesarios ni valoraciones como «excelente» o «imprescindible».
+4. **Palabras clave.** El rótulo `**Palabras clave**` y, en la línea siguiente, los hashtags, según las reglas de más abajo.
+5. **Licencia.** El rótulo `**Licencia**` y, en la línea siguiente, la licencia, según las reglas de más abajo.
+6. **Enlace final.** Esta línea, copiada letra por letra, con la dirección en texto plano y sin convertirla en enlace: `(Para crear un resumen como este, utiliza: https://ja.cat/resum)`
+
+# Formato para Telegram
+
+- Negrita: `**texto**`. Cursiva: `__texto__`, con dos guiones bajos. Nunca uses un solo asterisco, un solo guion bajo ni tres asteriscos.
+- No escapes ningún carácter: nada de `\_`, `\#` ni `\*`.
+- Los enlaces y los DOI van en texto plano (`https://…`), nunca con el formato `[texto](enlace)`.
+
+# Referencia APA 7
+
+- **Autores**, sin cursiva: `Apellido, I. I.`. Dos autores se unen con «y»; con tres o más, comas y «y» antes del último. Si el autor es una institución, su nombre completo. Si no hay autor, el título pasa a ocupar su lugar.
+- **Fecha**: `(Año).` En prensa, blogs y webs, `(Año, día de mes).` Sin fecha, `(s. f.).`
+- **Cursiva**, con `__`: el título de una obra independiente (libro, informe, guía, tesis, página web suelta) y, en los artículos, el nombre de la revista y el volumen. **Sin cursiva**: los autores, el título de un capítulo, de un artículo o de cualquier parte de una obra mayor, y el número de la revista entre paréntesis.
+- La edición o el número de informe, entre paréntesis después del título y sin cursiva: `__Título__ (2.ª ed.).`
+- La editorial se omite si coincide con el autor.
+- Al final, el DOI en forma de enlace (`https://doi.org/…`) o, si no tiene, la dirección directa del documento. Sin «Recuperado de».
+
+Modelos (los datos son inventados; solo importa la estructura):
+
+- Libro: `García López, M. y Pérez Sanz, A. (2025). __Evaluar con inteligencia artificial en el aula__ (2.ª ed.). Editorial Ejemplo. https://doi.org/10.1234/abcd`
+- Capítulo de libro: `Ruiz, P. (2024). Uso de chatbots en la tutoría. En L. Martín y J. Soler (Eds.), __Innovación educativa en la era digital__ (pp. 120-145). Editorial Ejemplo.`
+- Artículo de revista: `Ruiz, P., Vidal, C. y Soler, J. (2025). Integración de herramientas digitales en el aula. __Revista de Tecnología Educativa__, __30__(2), 45-60. https://doi.org/10.1234/efgh`
+- Informe o guía de una institución: `Ministerio de Ejemplo. (2025). __Guía para el uso de la IA generativa en los centros educativos__. https://www.ejemplo.gob/guia.pdf`
+- Entrada de blog o artículo de prensa: `Martín, L. (2025, 3 de marzo). Cinco usos de la IA en la evaluación formativa. __Nombre del blog__. https://www.ejemplo.org/entrada`
+
+# Palabras clave
+
+- Entre 5 y 8 hashtags específicos, en una sola línea, separados por coma y espacio: `#evaluacion_formativa, #aprendizaje_cooperativo, …`
+- Cada uno empieza por un solo `#`, va en minúsculas y sin tildes ni diéresis (la ñ se mantiene). Si tiene varias palabras, se unen con guiones bajos, sin espacios, guiones ni otros signos.
+- Prioriza los términos que un docente buscaría: metodología, área o materia, tema concreto, herramienta, destinatarios.
+- Prohibidos, porque todo el grupo trata de ello o no distinguen nada: `#inteligencia_artificial`, `#ia`, `#ai`, `#educacion`, `#docentes`, `#documento`, `#guia`. Tampoco repitas el mismo concepto con dos hashtags.
+- Si el documento se dirige a una etapa educativa concreta, su hashtag va en primer lugar, antes de los demás: `#educacion_infantil`, `#educacion_primaria`, `#educacion_secundaria`, `#bachillerato`, `#formacion_profesional`, `#educacion_superior`, `#educacion_de_adultos`. Si se dirige a varias, uno para cada una. Si es general, no pongas ninguno.
+
+# Licencia
+
+Busca la licencia en los créditos, el pie, los metadatos o la web de origen. No la deduzcas ni la inventes.
+
+- **Se puede compartir** en el grupo si tiene una licencia abierta (cualquier Creative Commons, dominio público u otra licencia libre) o si el titular permite expresamente su libre distribución. En ese caso escribe solo el nombre completo de la licencia, con su versión y su abreviatura, sin ninguna frase más: `Creative Commons Reconocimiento-NoComercial-CompartirIgual 4.0 Internacional (CC BY-NC-SA 4.0)`.
+- **No se puede compartir** si indica «todos los derechos reservados», si solo lleva el símbolo de copyright, si no indica ninguna licencia o si la licencia prohíbe distribuirlo. En ese caso escribe: `No se podrá compartir con el grupo ChatGPT-IA-edu: ` seguido del motivo en una frase, por ejemplo `el documento indica © 2025 Editorial Ejemplo, todos los derechos reservados, y no tiene licencia abierta.`
+
+# Comprobación antes de responder
+
+Repasa la ficha y corrige lo que no cumpla:
+
+- Todo está dentro de un único bloque de código y fuera no hay nada.
+- Los apartados no van numerados y hay una línea vacía entre ellos.
+- En la referencia, la cursiva se hace con `__`, los autores no van en cursiva y el título solo va en cursiva si no forma parte de una obra mayor.
+- El resumen tiene entre 50 y 60 palabras.
+- Los hashtags llevan un solo `#`, no tienen tildes ni barras invertidas, y no aparece ninguno de los prohibidos.
+- La licencia se escribe sola si permite compartir, o con el motivo si no lo permite.
+- Los enlaces van en texto plano, también el de la última línea: ni corchetes ni paréntesis de enlace Markdown.
+</script>
+
+<script>
+  'use strict';
+
+  const VERSION = '1.0.0';
+
+  // Asistentes y cómo reciben las instrucciones (comprobado el 20-10-2026, ver ADR 0002):
+  //  - 'rellena': el parámetro ?q= deja el texto escrito en el cuadro, sin enviarlo.
+  //  - 'envia':   el parámetro ?q= envía el texto nada más abrir (Grok pide confirmarlo).
+  //  - 'pegar':   no admite el texto en la dirección; hay que pegarlo.
+  const ASISTENTES = [
+    { nombre: 'ChatGPT', url: 'https://chatgpt.com/', modo: 'rellena' },
+    { nombre: 'Gemini', url: 'https://gemini.google.com/app', modo: 'pegar' },
+    { nombre: 'Copilot', url: 'https://copilot.microsoft.com/', modo: 'pegar' },
+    { nombre: 'Claude', url: 'https://claude.ai/new', modo: 'rellena', aviso: 'avisoClaude' },
+    { nombre: 'Le Chat', url: 'https://chat.mistral.ai/chat', modo: 'pegar' },
+    { nombre: 'Lumo', url: 'https://lumo.proton.me/', modo: 'pegar' },
+    { nombre: 'DeepSeek', url: 'https://chat.deepseek.com/', modo: 'pegar' },
+    { nombre: 'Perplexity', url: 'https://www.perplexity.ai/', modo: 'envia' },
+    { nombre: 'Grok', url: 'https://grok.com/', modo: 'envia' }
+  ];
+
+  const TEXTOS = {
+    es: {
+      idioma: 'Idioma',
+      titulo: 'Resumen de documentos',
+      intro: 'Prepara con el asistente de IA que prefieras la ficha de un documento para la biblioteca digital del grupo ChatGPT-IA-edu: título, referencia APA, resumen, palabras clave y licencia, lista para pegar en Telegram.',
+      notaIdioma: 'La ficha sale siempre en castellano, como el resto de la biblioteca.',
+      paso1: 'Abre tu asistente',
+      paso1Texto: 'Al pulsar, se copian las instrucciones y se abre el asistente en otra pestaña.',
+      paso2: 'Adjunta el documento',
+      paso2Texto: 'Adjunta el archivo, o pega su enlace o su texto, y envía el mensaje junto con las instrucciones.',
+      paso3: 'Comprueba y publica',
+      paso3Texto: 'Revisa la ficha, sobre todo la referencia y la licencia, cópiala con el botón del bloque y pégala en el grupo.',
+      modoRellena: 'Instrucciones ya escritas',
+      modoEnvia: 'Se envían solas',
+      modoPegar: 'Pegar instrucciones',
+      estadoRellena: 'Instrucciones copiadas. En {a} deberían aparecer ya escritas; si el cuadro está vacío, pégalas. Adjunta el documento y envía.',
+      estadoEnvia: 'Instrucciones copiadas. {a} las envía al abrirse; cuando te pida el documento, adjúntalo.',
+      estadoPegar: 'Instrucciones copiadas. En {a}, pégalas en el cuadro (Ctrl+V, o mantén pulsado en el móvil), adjunta el documento y envía.',
+      avisoClaude: 'Claude muestra un aviso de seguridad porque el texto llega desde un enlace: es normal.',
+      estadoSinCopia: 'No se han podido copiar solas: cópialas desde «Ver las instrucciones», más abajo.',
+      abrir: 'Abrir {a} (se abre en otra pestaña)',
+      instrucciones: 'Las instrucciones',
+      instruccionesTexto: 'Sirven para cualquier asistente, también para las instrucciones personalizadas de un proyecto, un GPT o un cuaderno.',
+      copiar: 'Copiar',
+      descargar: 'Descargar',
+      copiado: 'Instrucciones copiadas.',
+      ver: 'Ver las instrucciones',
+      temaOscuro: 'Tema oscuro',
+      temaClaro: 'Tema claro',
+      licencias: 'Contenido CC BY-SA 4.0, código AGPL-3.0',
+      ia: 'Página e instrucciones hechas con IA (Claude Code, octubre de 2026), dirigidas y revisadas por el autor. Nivel 4 del MIAE.',
+      creditos: 'Créditos y licencias',
+      creditosTexto: 'Autor: Juan José de Haro, para la comunidad ChatGPT-IA-edu. Contenido bajo licencia CC BY-SA 4.0 y código bajo AGPL-3.0.',
+      creditosLucide: 'Iconos: Lucide (licencia ISC).',
+      creditosPrivacidad: 'Privacidad: la página no guarda ni envía nada. Solo recuerda en tu navegador el idioma y el tema que elijas.',
+      creditosTraduccion: 'Las traducciones de esta página son automáticas, hechas con IA, y no las ha revisado un traductor profesional.',
+      cerrar: 'Cerrar'
+    },
+    ca: {
+      idioma: 'Idioma',
+      titulo: 'Resum de documents',
+      intro: "Prepara amb l'assistent d'IA que prefereixis la fitxa d'un document per a la biblioteca digital del grup ChatGPT-IA-edu: títol, referència APA, resum, paraules clau i llicència, llesta per enganxar a Telegram.",
+      notaIdioma: 'La fitxa surt sempre en castellà, com la resta de la biblioteca.',
+      paso1: "Obre el teu assistent",
+      paso1Texto: "En prémer, es copien les instruccions i s'obre l'assistent en una altra pestanya.",
+      paso2: 'Adjunta el document',
+      paso2Texto: "Adjunta el fitxer, o enganxa'n l'enllaç o el text, i envia el missatge juntament amb les instruccions.",
+      paso3: 'Comprova i publica',
+      paso3Texto: "Revisa la fitxa, sobretot la referència i la llicència, copia-la amb el botó del bloc i enganxa-la al grup.",
+      modoRellena: 'Instruccions ja escrites',
+      modoEnvia: "S'envien soles",
+      modoPegar: 'Enganxar instruccions',
+      estadoRellena: "Instruccions copiades. A {a} haurien d'aparèixer ja escrites; si el quadre és buit, enganxa-les. Adjunta el document i envia.",
+      estadoEnvia: "Instruccions copiades. {a} les envia en obrir-se; quan et demani el document, adjunta'l.",
+      estadoPegar: "Instruccions copiades. A {a}, enganxa-les al quadre (Ctrl+V, o mantén premut al mòbil), adjunta el document i envia.",
+      avisoClaude: "Claude mostra un avís de seguretat perquè el text arriba des d'un enllaç: és normal.",
+      estadoSinCopia: "No s'han pogut copiar soles: copia-les des de «Veure les instruccions», més avall.",
+      abrir: "Obrir {a} (s'obre en una altra pestanya)",
+      instrucciones: 'Les instruccions',
+      instruccionesTexto: "Serveixen per a qualsevol assistent, també per a les instruccions personalitzades d'un projecte, un GPT o un quadern.",
+      copiar: 'Copiar',
+      descargar: 'Descarregar',
+      copiado: 'Instruccions copiades.',
+      ver: 'Veure les instruccions',
+      temaOscuro: 'Tema fosc',
+      temaClaro: 'Tema clar',
+      licencias: 'Contingut CC BY-SA 4.0, codi AGPL-3.0',
+      ia: "Pàgina i instruccions fetes amb IA (Claude Code, octubre de 2026), dirigides i revisades per l'autor. Nivell 4 del MIAE.",
+      creditos: 'Crèdits i llicències',
+      creditosTexto: 'Autor: Juan José de Haro, per a la comunitat ChatGPT-IA-edu. Contingut amb llicència CC BY-SA 4.0 i codi amb AGPL-3.0.',
+      creditosLucide: 'Icones: Lucide (llicència ISC).',
+      creditosPrivacidad: "Privadesa: la pàgina no desa ni envia res. Només recorda al teu navegador l'idioma i el tema que triïs.",
+      creditosTraduccion: "Les traduccions d'aquesta pàgina són automàtiques, fetes amb IA, i no les ha revisat cap traductor professional.",
+      cerrar: 'Tancar'
+    },
+    gl: {
+      idioma: 'Idioma',
+      titulo: 'Resumo de documentos',
+      intro: 'Prepara co asistente de IA que prefiras a ficha dun documento para a biblioteca dixital do grupo ChatGPT-IA-edu: título, referencia APA, resumo, palabras clave e licenza, lista para pegar en Telegram.',
+      notaIdioma: 'A ficha sae sempre en castelán, coma o resto da biblioteca.',
+      paso1: 'Abre o teu asistente',
+      paso1Texto: 'Ao premer, cópianse as instrucións e ábrese o asistente noutra lapela.',
+      paso2: 'Achega o documento',
+      paso2Texto: 'Achega o ficheiro, ou pega a súa ligazón ou o seu texto, e envía a mensaxe xunto coas instrucións.',
+      paso3: 'Comproba e publica',
+      paso3Texto: 'Revisa a ficha, sobre todo a referencia e a licenza, cópiaa co botón do bloque e pégaa no grupo.',
+      modoRellena: 'Instrucións xa escritas',
+      modoEnvia: 'Envíanse soas',
+      modoPegar: 'Pegar instrucións',
+      estadoRellena: 'Instrucións copiadas. En {a} deberían aparecer xa escritas; se a caixa está baleira, pégaas. Achega o documento e envía.',
+      estadoEnvia: 'Instrucións copiadas. {a} envíaas ao abrirse; cando che pida o documento, achégao.',
+      estadoPegar: 'Instrucións copiadas. En {a}, pégaas na caixa (Ctrl+V, ou mantén premido no móbil), achega o documento e envía.',
+      avisoClaude: 'Claude mostra un aviso de seguridade porque o texto chega desde unha ligazón: é normal.',
+      estadoSinCopia: 'Non se puideron copiar soas: cópiaas desde «Ver as instrucións», máis abaixo.',
+      abrir: 'Abrir {a} (ábrese noutra lapela)',
+      instrucciones: 'As instrucións',
+      instruccionesTexto: 'Serven para calquera asistente, tamén para as instrucións personalizadas dun proxecto, un GPT ou un caderno.',
+      copiar: 'Copiar',
+      descargar: 'Descargar',
+      copiado: 'Instrucións copiadas.',
+      ver: 'Ver as instrucións',
+      temaOscuro: 'Tema escuro',
+      temaClaro: 'Tema claro',
+      licencias: 'Contido CC BY-SA 4.0, código AGPL-3.0',
+      ia: 'Páxina e instrucións feitas con IA (Claude Code, outubro de 2026), dirixidas e revisadas polo autor. Nivel 4 do MIAE.',
+      creditos: 'Créditos e licenzas',
+      creditosTexto: 'Autor: Juan José de Haro, para a comunidade ChatGPT-IA-edu. Contido baixo licenza CC BY-SA 4.0 e código baixo AGPL-3.0.',
+      creditosLucide: 'Iconas: Lucide (licenza ISC).',
+      creditosPrivacidad: 'Privacidade: a páxina non garda nin envía nada. Só lembra no teu navegador o idioma e o tema que escollas.',
+      creditosTraduccion: 'As traducións desta páxina son automáticas, feitas con IA, e non as revisou un tradutor profesional.',
+      cerrar: 'Pechar'
+    },
+    eu: {
+      idioma: 'Hizkuntza',
+      titulo: 'Dokumentuen laburpena',
+      intro: 'Prestatu nahiago duzun AA laguntzailearekin ChatGPT-IA-edu taldeko liburutegi digitalerako dokumentu baten fitxa: izenburua, APA erreferentzia, laburpena, gako-hitzak eta lizentzia, Telegramen itsasteko prest.',
+      notaIdioma: 'Fitxa beti gaztelaniaz ateratzen da, liburutegiko gainerakoak bezala.',
+      paso1: 'Ireki zure laguntzailea',
+      paso1Texto: 'Sakatzean, argibideak kopiatzen dira eta laguntzailea beste fitxa batean irekitzen da.',
+      paso2: 'Erantsi dokumentua',
+      paso2Texto: 'Erantsi fitxategia, edo itsatsi haren esteka edo testua, eta bidali mezua argibideekin batera.',
+      paso3: 'Egiaztatu eta argitaratu',
+      paso3Texto: 'Berrikusi fitxa, batez ere erreferentzia eta lizentzia, kopiatu blokearen botoiarekin eta itsatsi taldean.',
+      modoRellena: 'Argibideak idatzita',
+      modoEnvia: 'Berez bidaltzen dira',
+      modoPegar: 'Itsatsi argibideak',
+      estadoRellena: 'Argibideak kopiatu dira. {a}(e)n idatzita agertu beharko lukete; laukia hutsik badago, itsatsi. Erantsi dokumentua eta bidali.',
+      estadoEnvia: 'Argibideak kopiatu dira. {a}(e)k irekitzean bidaltzen ditu; dokumentua eskatzen dizunean, erantsi.',
+      estadoPegar: 'Argibideak kopiatu dira. {a}(e)n, itsatsi laukian (Ctrl+V, edo sakatuta eutsi mugikorrean), erantsi dokumentua eta bidali.',
+      avisoClaude: 'Claudek segurtasun-abisu bat erakusten du testua esteka batetik datorrelako: normala da.',
+      estadoSinCopia: 'Ezin izan dira berez kopiatu: kopiatu «Ikusi argibideak» ataletik, beherago.',
+      abrir: 'Ireki {a} (beste fitxa batean irekitzen da)',
+      instrucciones: 'Argibideak',
+      instruccionesTexto: 'Edozein laguntzailerekin balio dute, baita proiektu, GPT edo koaderno baten argibide pertsonalizatuetarako ere.',
+      copiar: 'Kopiatu',
+      descargar: 'Deskargatu',
+      copiado: 'Argibideak kopiatu dira.',
+      ver: 'Ikusi argibideak',
+      temaOscuro: 'Gai iluna',
+      temaClaro: 'Gai argia',
+      licencias: 'Edukia CC BY-SA 4.0, kodea AGPL-3.0',
+      ia: 'AArekin egindako orria eta argibideak (Claude Code, 2026ko urria), egileak zuzendu eta berrikusiak. MIAEren 4. maila.',
+      creditos: 'Kredituak eta lizentziak',
+      creditosTexto: 'Egilea: Juan José de Haro, ChatGPT-IA-edu komunitatearentzat. Edukia CC BY-SA 4.0 lizentziapean eta kodea AGPL-3.0 lizentziapean.',
+      creditosLucide: 'Ikonoak: Lucide (ISC lizentzia).',
+      creditosPrivacidad: 'Pribatutasuna: orriak ez du ezer gordetzen ez bidaltzen. Zure nabigatzailean aukeratzen duzun hizkuntza eta gaia baino ez ditu gogoratzen.',
+      creditosTraduccion: 'Orri honetako itzulpenak automatikoak dira, AArekin eginak, eta ez ditu itzultzaile profesional batek berrikusi.',
+      cerrar: 'Itxi'
+    },
+    en: {
+      idioma: 'Language',
+      titulo: 'Document summary',
+      intro: 'Use the AI assistant you prefer to prepare the record of a document for the digital library of the ChatGPT-IA-edu group: title, APA reference, summary, keywords and licence, ready to paste into Telegram.',
+      notaIdioma: 'The record is always written in Spanish, like the rest of the library.',
+      paso1: 'Open your assistant',
+      paso1Texto: 'When you click, the instructions are copied and the assistant opens in another tab.',
+      paso2: 'Attach the document',
+      paso2Texto: 'Attach the file, or paste its link or its text, and send the message along with the instructions.',
+      paso3: 'Check and publish',
+      paso3Texto: 'Review the record, especially the reference and the licence, copy it with the block’s button and paste it into the group.',
+      modoRellena: 'Instructions pre-filled',
+      modoEnvia: 'Sent automatically',
+      modoPegar: 'Paste instructions',
+      estadoRellena: 'Instructions copied. In {a} they should already be written; if the box is empty, paste them. Attach the document and send.',
+      estadoEnvia: 'Instructions copied. {a} sends them when it opens; when it asks for the document, attach it.',
+      estadoPegar: 'Instructions copied. In {a}, paste them into the box (Ctrl+V, or long-press on a phone), attach the document and send.',
+      avisoClaude: 'Claude shows a security warning because the text comes from a link: this is normal.',
+      estadoSinCopia: 'They could not be copied automatically: copy them from “Show the instructions” below.',
+      abrir: 'Open {a} (opens in another tab)',
+      instrucciones: 'The instructions',
+      instruccionesTexto: 'They work with any assistant, including the custom instructions of a project, a GPT or a notebook.',
+      copiar: 'Copy',
+      descargar: 'Download',
+      copiado: 'Instructions copied.',
+      ver: 'Show the instructions',
+      temaOscuro: 'Dark theme',
+      temaClaro: 'Light theme',
+      licencias: 'Content CC BY-SA 4.0, code AGPL-3.0',
+      ia: 'Page and instructions made with AI (Claude Code, October 2026), directed and reviewed by the author. MIAE level 4.',
+      creditos: 'Credits and licences',
+      creditosTexto: 'Author: Juan José de Haro, for the ChatGPT-IA-edu community. Content under the CC BY-SA 4.0 licence and code under AGPL-3.0.',
+      creditosLucide: 'Icons: Lucide (ISC licence).',
+      creditosPrivacidad: 'Privacy: the page neither stores nor sends anything. It only remembers in your browser the language and theme you choose.',
+      creditosTraduccion: 'The translations of this page are automatic, made with AI, and have not been reviewed by a professional translator.',
+      cerrar: 'Close'
+    }
+  };
+
+  // Enlaces que se insertan dentro de los textos traducidos.
+  const ENLACES = {
+    'ChatGPT-IA-edu': 'https://t.me/ChatGPTedu',
+    'CC BY-SA 4.0': 'https://creativecommons.org/licenses/by-sa/4.0/deed.es',
+    'AGPL-3.0': 'https://www.gnu.org/licenses/agpl-3.0.html',
+    'MIAE': 'https://jjdeharo.github.io/miae/?nivel=4',
+    'Lucide': 'https://lucide.dev/'
+  };
+
+  const $ = (id) => document.getElementById(id);
+  const INSTRUCCIONES = $('instrucciones').textContent.trim() + '\n';
+  let idioma = 'es';
+
+  /* --- Preferencias guardadas en el navegador --- */
+
+  function leerPreferencia(clave) {
+    try { return localStorage.getItem(clave); } catch (e) { return null; }
+  }
+  function guardarPreferencia(clave, valor) {
+    try {
+      if (valor === null) localStorage.removeItem(clave);
+      else localStorage.setItem(clave, valor);
+    } catch (e) { /* sin almacenamiento: se usa lo del sistema */ }
+  }
+
+  /* --- Textos --- */
+
+  function t(clave, asistente) {
+    const texto = TEXTOS[idioma][clave] || TEXTOS.es[clave];
+    return asistente ? texto.replace('{a}', asistente) : texto;
+  }
+
+  // Escribe un texto y convierte en enlace los nombres de ENLACES que contiene.
+  function escribirConEnlaces(elemento, texto) {
+    elemento.textContent = '';
+    const nombres = Object.keys(ENLACES).map((n) => n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+    const partes = texto.split(new RegExp('(' + nombres.join('|') + ')'));
+    partes.forEach((parte) => {
+      if (ENLACES[parte]) {
+        const a = document.createElement('a');
+        a.href = ENLACES[parte];
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.textContent = parte;
+        elemento.appendChild(a);
+      } else if (parte) {
+        elemento.appendChild(document.createTextNode(parte));
+      }
+    });
+  }
+
+  function aplicarIdioma(nuevo, elegidoAMano) {
+    idioma = TEXTOS[nuevo] ? nuevo : 'es';
+    document.documentElement.lang = idioma;
+    $('idioma').value = idioma;
+    if (elegidoAMano) guardarPreferencia('resumen.idioma', idioma);
+    document.querySelectorAll('[data-t]').forEach((el) => {
+      // Los enlaces solo se ponen fuera de los botones y del título.
+      if (el.closest('button, h1, h2, summary')) el.textContent = t(el.dataset.t);
+      else escribirConEnlaces(el, t(el.dataset.t));
+    });
+    document.title = t('titulo') + ' · ChatGPT-IA-edu';
+    $('cerrar-creditos').setAttribute('aria-label', t('cerrar'));
+    $('cerrar-creditos').title = t('cerrar');
+    actualizarBotonTema();
+    pintarAsistentes();
+    $('estado').textContent = '';
+  }
+
+  function idiomaInicial() {
+    const guardado = leerPreferencia('resumen.idioma');
+    if (guardado && TEXTOS[guardado]) return guardado;
+    for (const preferido of navigator.languages || [navigator.language || 'es']) {
+      const codigo = preferido.slice(0, 2).toLowerCase();
+      if (TEXTOS[codigo]) return codigo;
+    }
+    return 'es';
+  }
+
+  /* --- Tema claro u oscuro, como en Sirena --- */
+
+  const sistemaOscuro = matchMedia('(prefers-color-scheme: dark)');
+
+  function esOscuro() {
+    return document.documentElement.dataset.theme === 'dark';
+  }
+
+  // Si se elige justo el tema del dispositivo, se vuelve a seguirlo.
+  function aplicarTema(oscuro, elegidoAMano) {
+    document.documentElement.dataset.theme = oscuro ? 'dark' : 'light';
+    if (elegidoAMano) guardarPreferencia('resumen.oscuro', oscuro === sistemaOscuro.matches ? null : (oscuro ? '1' : '0'));
+    actualizarBotonTema();
+  }
+
+  function actualizarBotonTema() {
+    const boton = $('boton-tema');
+    const rotulo = esOscuro() ? t('temaClaro') : t('temaOscuro');
+    boton.querySelector('use').setAttribute('href', esOscuro() ? '#i-sun' : '#i-moon');
+    boton.title = rotulo;
+    boton.setAttribute('aria-label', rotulo);
+  }
+
+  sistemaOscuro.addEventListener('change', (e) => {
+    if (leerPreferencia('resumen.oscuro') === null) aplicarTema(e.matches, false);
+  });
+
+  /* --- Copiar las instrucciones --- */
+
+  // Copia con la API del portapapeles y, si no está disponible, con el método antiguo.
+  function copiar(texto) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(texto).then(() => true, () => copiarAntiguo(texto));
+    }
+    return Promise.resolve(copiarAntiguo(texto));
+  }
+
+  function copiarAntiguo(texto) {
+    const area = document.createElement('textarea');
+    area.value = texto;
+    area.setAttribute('readonly', '');
+    area.style.position = 'fixed';
+    area.style.opacity = '0';
+    document.body.appendChild(area);
+    area.select();
+    let hecho = false;
+    try { hecho = document.execCommand('copy'); } catch (e) { hecho = false; }
+    area.remove();
+    return hecho;
+  }
+
+  /* --- Asistentes --- */
+
+  const CLAVE_MODO = { rellena: 'modoRellena', envia: 'modoEnvia', pegar: 'modoPegar' };
+  const CLAVE_ESTADO = { rellena: 'estadoRellena', envia: 'estadoEnvia', pegar: 'estadoPegar' };
+
+  function direccion(asistente) {
+    if (asistente.modo === 'pegar') return asistente.url;
+    return asistente.url + '?q=' + encodeURIComponent(INSTRUCCIONES);
+  }
+
+  function pintarAsistentes() {
+    const lista = $('asistentes');
+    lista.textContent = '';
+    ASISTENTES.forEach((asistente) => {
+      const boton = document.createElement('button');
+      boton.type = 'button';
+      boton.className = 'asistente';
+      boton.setAttribute('aria-label', t('abrir', asistente.nombre) + '. ' + t(CLAVE_MODO[asistente.modo]));
+      boton.innerHTML = '<span class="nombre"></span><span class="modo"></span>';
+      boton.querySelector('.nombre').textContent = asistente.nombre;
+      boton.querySelector('.nombre').insertAdjacentHTML('beforeend', '<svg class="icono" aria-hidden="true"><use href="#i-external"></use></svg>');
+      boton.querySelector('.modo').textContent = t(CLAVE_MODO[asistente.modo]);
+      boton.addEventListener('click', () => abrirAsistente(asistente));
+      lista.appendChild(boton);
+    });
+  }
+
+  function abrirAsistente(asistente) {
+    // La pestaña se abre en el mismo gesto del clic para que el navegador no la bloquee.
+    const copia = copiar(INSTRUCCIONES);
+    window.open(direccion(asistente), '_blank', 'noopener');
+    copia.then((hecho) => {
+      let texto = hecho ? t(CLAVE_ESTADO[asistente.modo], asistente.nombre) : t('estadoSinCopia');
+      if (asistente.aviso) texto += ' ' + t(asistente.aviso);
+      $('estado').textContent = texto;
+    });
+  }
+
+  /* --- Arranque --- */
+
+  $('texto-instrucciones').textContent = INSTRUCCIONES;
+  $('version').textContent = 'v' + VERSION;
+
+  $('idioma').addEventListener('change', (e) => aplicarIdioma(e.target.value, true));
+  $('boton-tema').addEventListener('click', () => aplicarTema(!esOscuro(), true));
+
+  $('copiar').addEventListener('click', () => {
+    copiar(INSTRUCCIONES).then((hecho) => {
+      $('estado').textContent = '';
+      const boton = $('copiar').querySelector('span');
+      boton.textContent = hecho ? t('copiado') : t('estadoSinCopia');
+      setTimeout(() => { boton.textContent = t('copiar'); }, 2500);
+    });
+  });
+
+  $('descargar').addEventListener('click', () => {
+    const enlace = document.createElement('a');
+    enlace.href = URL.createObjectURL(new Blob([INSTRUCCIONES], { type: 'text/markdown;charset=utf-8' }));
+    enlace.download = 'instrucciones-resumen.md';
+    document.body.appendChild(enlace);
+    enlace.click();
+    enlace.remove();
+    setTimeout(() => URL.revokeObjectURL(enlace.href), 1000);
+  });
+
+  $('abrir-creditos').addEventListener('click', () => $('creditos').showModal());
+  $('cerrar-creditos').addEventListener('click', () => $('creditos').close());
+  // Pulsar fuera de la ventana también la cierra.
+  $('creditos').addEventListener('click', (e) => { if (e.target === $('creditos')) $('creditos').close(); });
+
+  aplicarIdioma(idiomaInicial(), false);
+</script>
+</body>
+</html>
